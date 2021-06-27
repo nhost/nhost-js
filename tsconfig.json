@@ -1,0 +1,27 @@
+{
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/**/*.test.ts",
+    "src/test"
+  ],
+  "compilerOptions": {
+    "lib": [
+      "es2020",
+      "dom"
+    ],
+    "esModuleInterop": true,
+    "declaration": true,
+    "strict": true,
+    "target": "es5",
+    "outDir": "dist",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "rootDir": "src",
+    "noUnusedLocals": true
+  }
+}

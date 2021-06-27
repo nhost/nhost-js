@@ -1,0 +1,24 @@
+{
+  "name": "nhost-js",
+  "version": "0.0.1",
+  "description": "Nhost JavaScript SDK",
+  "main": "index.js",
+  "dependencies": {
+    "typescript": "^4.3.4",
+    "hasura-auth-js": "^0.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nhost/nhost-js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nhost/nhost-js/issues"
+  },
+  "homepage": "https://github.com/nhost/nhost-js#readme"
+}
