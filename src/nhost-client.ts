@@ -30,10 +30,6 @@ export default class NhostClient {
       ? config.clientStorageType
       : "web";
 
-    console.log("init Nhost auth from Nhost Client");
-    console.log("local storage:");
-    console.log({ localStorage });
-
     this.auth = new NhostAuth(
       {
         baseURL: this.baseURL,

@@ -29,8 +29,6 @@ export default class Auth {
   private sampleRate: number;
 
   constructor(config: types.AuthConfig, session: UserSession) {
-    console.log("in NhostAuth constructor");
-
     const {
       baseURL,
       refreshIntervalTime,
@@ -405,11 +403,7 @@ export default class Auth {
   }
 
   private _autoLogin(refreshToken: string | null): void {
-    console.log("in _autoLogin");
-    console.log({ refreshToken });
-
     if (this.ssr) {
-      console.log("ssr is true?");
       return;
     }
 
@@ -419,9 +413,6 @@ export default class Auth {
   private async _refreshToken(initRefreshToken?: string | null): Promise<void> {
     const refreshToken =
       initRefreshToken || (await this._getItem("nhostRefreshToken"));
-
-    console.log("in _refreshToken");
-    console.log({ refreshToken });
 
     if (!refreshToken) {
       // place at end of call-stack to let frontend get `null` first (to match SSR)
@@ -481,8 +472,6 @@ export default class Auth {
     if (this.isAuthenticated() === false) {
       return;
     }
-
-    console.log("_clearSession");
 
     clearInterval(this.refreshInterval);
     clearInterval(this.refreshSleepCheckInterval);
