@@ -1,7 +1,10 @@
-import NhostClient from "./NhostClient";
+import NhostClient from "./nhost-client";
+import * as types from "./types";
 
-const createClient = (
-    NhostProjectURL: string,
-)
+const createClient = (config: types.NhostConfig) => {
+  console.log("createClient ...");
 
-export { NhostClient, createClient }
+  return new NhostClient(config);
+};
+
+export { NhostClient, createClient };

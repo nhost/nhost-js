@@ -1,15 +1,19 @@
 {
-  "name": "nhost-js",
+  "name": "@nhost/nhost-js",
   "version": "0.0.1",
   "description": "Nhost JavaScript SDK",
-  "main": "index.js",
+  "main": "dist/index.js",
   "dependencies": {
-    "typescript": "^4.3.4",
-    "hasura-auth-js": "^0.0.1"
+    "jwt-decode": "^3.1.2",
+    "query-string": "^7.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/jwt-decode": "^3.1.0",
+    "typescript": "^4.3.5"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
