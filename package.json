@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "Nhost JavaScript SDK",
   "main": "dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "dist/"
   ],
