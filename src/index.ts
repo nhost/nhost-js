@@ -1,7 +1,8 @@
-import NhostClient from "./NhostClient";
+import NhostClient from "./nhost-client";
+import * as types from "./types";
 
-const createClient = (
-    NhostProjectURL: string,
-)
+const createClient = (config: types.NhostConfig) => {
+  return new NhostClient(config);
+};
 
-export { NhostClient, createClient }
+export { NhostClient, createClient };

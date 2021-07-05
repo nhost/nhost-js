@@ -1,15 +1,18 @@
 {
-  "name": "nhost-js",
-  "version": "0.0.1",
+  "name": "@nhost/nhost-js",
+  "version": "0.0.0",
   "description": "Nhost JavaScript SDK",
-  "main": "index.js",
-  "dependencies": {
-    "typescript": "^4.3.4",
-    "hasura-auth-js": "^0.0.1"
+  "main": "dist/index.js",
+  "publishConfig": {
+    "access": "public"
   },
-  "devDependencies": {},
+  "files": [
+    "dist/"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "yarn build && np",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -20,5 +23,14 @@
   "bugs": {
     "url": "https://github.com/nhost/nhost-js/issues"
   },
-  "homepage": "https://github.com/nhost/nhost-js#readme"
+  "homepage": "https://github.com/nhost/nhost-js#readme",
+  "dependencies": {
+    "jwt-decode": "^3.1.2",
+    "query-string": "^7.0.1"
+  },
+  "devDependencies": {
+    "@types/jwt-decode": "^3.1.0",
+    "np": "^7.5.0",
+    "typescript": "^4.3.5"
+  }
 }
