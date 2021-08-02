@@ -95,7 +95,7 @@ export default class Auth {
   //   return this.currentUser;
   // }
 
-  public async register({
+  public async signUp({
     email,
     password,
     options = {},
@@ -115,7 +115,7 @@ export default class Auth {
 
     let res;
     try {
-      res = await this.httpClient.post("/register", {
+      res = await this.httpClient.post("/signup/email-password", {
         email,
         password,
         user_data: userData,
@@ -135,7 +135,7 @@ export default class Auth {
     }
   }
 
-  public async login({
+  public async signIn({
     email,
     password,
     provider,
@@ -148,13 +148,13 @@ export default class Auth {
     magicLink?: true;
   }> {
     if (provider) {
-      window.location.href = `${this.baseURL}/auth/providers/${provider}`;
+      window.location.href = `${this.baseURL}/signin/provider/${provider}`;
       return { session: null, user: null };
     }
 
     let res;
     try {
-      res = await this.httpClient.post("/login", {
+      res = await this.httpClient.post("/signin/email-password", {
         email,
         password,
       });
@@ -262,7 +262,7 @@ export default class Auth {
   }
 
   public getJWTToken(): string | null {
-    return this.currentSession.getSession()?.jwtToken || null;
+    return this.currentSession.getSession()?.accessToken || null;
   }
 
   public getClaim(claim: string): string | string[] | null {
@@ -495,10 +495,10 @@ export default class Auth {
 
     if (!previouslyAuthenticated) {
       // start refresh token interval after logging in
-      const JWTExpiresIn = session.jwtExpiresIn;
+      const { accessTokenExpiresIn } = session;
       const refreshIntervalTime = this.refreshIntervalTime
         ? this.refreshIntervalTime
-        : Math.max(30 * 1000, JWTExpiresIn - 45000); //45 sec before expires
+        : Math.max(30 * 1000, accessTokenExpiresIn - 45000); //45 sec before expires
       this.refreshInterval = setInterval(
         this._refreshToken.bind(this),
         refreshIntervalTime

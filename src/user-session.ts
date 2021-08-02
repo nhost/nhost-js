@@ -13,7 +13,7 @@ export default class UserSession {
   public setSession(session: Session) {
     this.session = session;
 
-    const jwtTokenDecoded: JWTClaims = jwt_decode(session.jwtToken);
+    const jwtTokenDecoded: JWTClaims = jwt_decode(session.accessToken);
     this.claims = jwtTokenDecoded["https://hasura.io/jwt/claims"];
   }
 

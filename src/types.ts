@@ -72,8 +72,8 @@ export interface UserCredentials {
   };
 }
 export interface Session {
-  jwtToken: string;
-  jwtExpiresIn: number;
+  accessToken: string;
+  accessTokenExpiresIn: number;
   user: User;
   refreshToken?: string; // not present if useCookie
 }
