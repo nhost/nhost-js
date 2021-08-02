@@ -163,13 +163,16 @@ export default class Auth {
       throw error;
     }
 
-    if ("mfa" in res.data) {
-      return { session: null, user: null, mfa: { ticket: res.data.ticket } };
-    }
+    // if ("mfa" in res.data) {
+    //   return { session: null, user: null, mfa: { ticket: res.data.ticket } };
+    // }
 
     if ("magicLink" in res.data) {
       return { session: null, user: null, magicLink: true };
     }
+
+    console.log("set session");
+    console.log(res.data);
 
     this._setSession(res.data);
 
@@ -433,10 +436,8 @@ export default class Auth {
       this.refreshTokenLock = true;
 
       // make refresh token request
-      res = await this.httpClient.get("/token/refresh", {
-        params: {
-          refreshToken: refreshToken,
-        },
+      res = await this.httpClient.post("/token", {
+        refreshToken: refreshToken,
       });
     } catch (error) {
       if (error.response?.status === 401) {
