@@ -2,6 +2,12 @@ import axios, { AxiosInstance } from "axios";
 // should import @nhost/hasura-auth-js
 import queryString from "query-string";
 
+type ChangePasswordOptions = {
+  oldPassword?: string;
+  ticket?: string;
+  newPassword: string;
+};
+
 import * as types from "./types";
 import UserSession from "./user-session";
 
@@ -203,6 +209,23 @@ export default class Auth {
     this._clearSession();
 
     return { session: null, user: null };
+  }
+
+  public async changePassword(options: ChangePasswordOptions) {
+    return await this.httpClient.post("/user/password", options, {
+      headers: {
+        Authorization: `Bearer ${this.getJWTToken()}`,
+      },
+    });
+  }
+
+  public async verifyEmail(options: { ticket: string; email: string }) {
+    const res = await this.httpClient.post("/user/email/verify", options);
+    return res.data;
+  }
+
+  public async passwordReset({ email }: { email: string }) {
+    return await this.httpClient.post("/user/password/reset", { email });
   }
 
   public onTokenChanged(fn: Function): Function {

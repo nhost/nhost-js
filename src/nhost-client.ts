@@ -1,4 +1,5 @@
 import NhostAuth from "./nhost-auth";
+import NhostStorage from "./nhost-storage";
 import * as types from "./types";
 import UserSession from "./user-session";
 
@@ -11,6 +12,7 @@ export default class NhostClient {
   private session: UserSession;
 
   auth: NhostAuth;
+  storage: NhostStorage;
 
   constructor(config: types.NhostConfig) {
     if (!config.baseURL)
@@ -40,5 +42,10 @@ export default class NhostClient {
       },
       this.session
     );
+
+    this.storage = new NhostStorage({
+      baseURL: this.baseURL,
+      userSession: this.session,
+    });
   }
 }
