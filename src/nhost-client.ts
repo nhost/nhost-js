@@ -1,51 +1,42 @@
-import NhostAuth from "./nhost-auth";
-import NhostStorage from "./nhost-storage";
-import * as types from "./types";
-import UserSession from "./user-session";
+import { HasuraAuthClient } from '@nhost/hasura-auth-js';
+import { HasuraStorageClient } from '@nhost/hasura-storage-js';
+import { NhostClientConstructorParams } from './utils/types';
 
 export default class NhostClient {
-  protected baseURL: string;
-  private refreshIntervalTime: number | null;
-  private clientStorage: types.ClientStorage;
-  private clientStorageType: string;
-  private ssr: boolean;
-  private session: UserSession;
+  auth: HasuraAuthClient;
+  storage: HasuraStorageClient;
 
-  auth: NhostAuth;
-  storage: NhostStorage;
+  constructor(params: NhostClientConstructorParams) {
+    if (!params.url) throw 'Please specify a baseURL. Docs: TODO.';
 
-  constructor(config: types.NhostConfig) {
-    if (!config.baseURL)
-      throw "Please specify a baseURL. Docs: https://docs.nhost.io/libraries/nhost-js-sdk#setup.";
+    const {
+      url,
+      refreshIntervalTime,
+      clientStorage,
+      clientStorageType,
+      autoRefreshToken,
+      autoLogin,
+    } = params;
 
-    this.baseURL = config.baseURL;
-    this.ssr = config.ssr ?? typeof window === "undefined";
+    this.auth = new HasuraAuthClient({
+      url: `${url}/auth`,
+      refreshIntervalTime,
+      clientStorage,
+      clientStorageType,
+      autoRefreshToken,
+      autoLogin,
+    });
 
-    this.session = new UserSession();
-    this.refreshIntervalTime = config.refreshIntervalTime || null; // 10 minutes (600 seconds)
+    this.storage = new HasuraStorageClient({
+      url: `${url}/storage`,
+    });
 
-    this.clientStorage = this.ssr
-      ? {}
-      : config.clientStorage || window.localStorage;
+    // set current token if token is already accessable
+    this.storage.setAccessToken(this.auth.getAccessToken());
 
-    this.clientStorageType = config.clientStorageType
-      ? config.clientStorageType
-      : "web";
-
-    this.auth = new NhostAuth(
-      {
-        baseURL: this.baseURL,
-        refreshIntervalTime: this.refreshIntervalTime,
-        clientStorage: this.clientStorage,
-        clientStorageType: this.clientStorageType,
-        ssr: this.ssr,
-      },
-      this.session
-    );
-
-    this.storage = new NhostStorage({
-      baseURL: this.baseURL,
-      userSession: this.session,
+    // update access token for storage
+    this.auth.onAuthStateChanged((_event, session) => {
+      this.storage.setAccessToken(session?.accessToken);
     });
   }
 }
