@@ -1,8 +1,9 @@
 import { HasuraAuthClient } from '@nhost/hasura-auth-js';
 import { HasuraStorageClient } from '@nhost/hasura-storage-js';
+
 import { NhostClientConstructorParams } from './utils/types';
 
-export default class NhostClient {
+export class NhostClient {
   auth: HasuraAuthClient;
   storage: HasuraStorageClient;
 
@@ -16,10 +17,12 @@ export default class NhostClient {
       clientStorageType,
       autoRefreshToken,
       autoLogin,
+      authUrl,
+      storageUrl,
     } = params;
 
     this.auth = new HasuraAuthClient({
-      url: `${url}/auth`,
+      url: authUrl ? authUrl : `${url}/auth`,
       refreshIntervalTime,
       clientStorage,
       clientStorageType,
@@ -28,7 +31,7 @@ export default class NhostClient {
     });
 
     this.storage = new HasuraStorageClient({
-      url: `${url}/storage`,
+      url: storageUrl ? storageUrl : `${url}/storage`,
     });
 
     // set current token if token is already accessable

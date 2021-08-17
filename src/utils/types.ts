@@ -7,4 +7,6 @@ export type NhostClientConstructorParams = {
   clientStorageType?: ClientStorageType;
   autoRefreshToken?: boolean;
   autoLogin?: boolean;
+  authUrl?: string;
+  storageUrl?: string;
 };
