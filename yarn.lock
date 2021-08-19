@@ -23,20 +23,20 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@nhost/hasura-auth-js@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@nhost/hasura-auth-js/-/hasura-auth-js-0.0.1.tgz#5f80be348f0c9e22fe6fe455638ba3956ed35d7f"
-  integrity sha512-fZ3iHVUQN6QU4wR+wW9WUZjdM8ovuns6pokrF8AuW9u774a4BIg0beDOx3qtZg1T1kupPeJMhcnOJJnC6oovfA==
+"@nhost/hasura-auth-js@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@nhost/hasura-auth-js/-/hasura-auth-js-0.0.2.tgz#578ed34348c6a10d6f9615e400aea92cf282b72d"
+  integrity sha512-qJooTFcTkxMLtT5k7eFpXFHeGcPj/KsMjzs7k0+nBthv2XLhFyOCVeK5H+SbnwUK2+xJ4EFBI/lUiTep6zNoDg==
   dependencies:
     "@types/jwt-decode" "^2.2.1"
     axios "^0.21.1"
     jwt-decode "^2.2.0"
-    query-string "^6.13.1"
+    query-string "^7.0.1"
 
-"@nhost/hasura-storage-js@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@nhost/hasura-storage-js/-/hasura-storage-js-0.0.1.tgz#b6fc6f06c95e602c1d436ef6e7e6a67865d1220e"
-  integrity sha512-qqI+w6d1Gv86GPdoy9hxut83sesvdDM3VF0+wS2BsU234e+iM6s0CSBqVXg1MEzRMH16avfjQTOpCEy+ZRvCrg==
+"@nhost/hasura-storage-js@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@nhost/hasura-storage-js/-/hasura-storage-js-0.0.3.tgz#e966940483d7283d63042fb26fd0e12c149b95f2"
+  integrity sha512-OR1QRTBqocqU1DSDB9wQ4rXsAMQBYz15raBQAQgY+ajiFxXBsSCzuEcThXm6Jd0PT7yBrRVxJrXI+e6Rm3dybw==
   dependencies:
     axios "^0.21.1"
 
@@ -1901,16 +1901,6 @@ pupa@^2.1.1:
   integrity sha512-l1jNAspIBSFqbT+y+5FosojNpVpF94nlI+wDUpqP9enwOTfHx9f0gh5nB96vl+6yTpsJsypeNrwfzPrKuHB41A==
   dependencies:
     escape-goat "^2.0.0"
-
-query-string@^6.13.1:
-  version "6.14.1"
-  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.14.1.tgz#7ac2dca46da7f309449ba0f86b1fd28255b0c86a"
-  integrity sha512-XDxAeVmpfu1/6IjyT/gXHOl+S0vQ9owggJ30hhWKdHAsNPOcasn5o9BW0eejZqL2e4vMjhAxoW3jVHcD6mbcYw==
-  dependencies:
-    decode-uri-component "^0.2.0"
-    filter-obj "^1.1.0"
-    split-on-first "^1.0.0"
-    strict-uri-encode "^2.0.0"
 
 query-string@^7.0.1:
   version "7.0.1"
