@@ -1,16 +1,17 @@
 import { createContext, ReactNode, useState, useEffect } from 'react';
 import { NhostClient } from '../../core';
-import { NhostContextDef } from '../../types';
+import { NhostAuthContextDef } from '../../types';
 
-export const NhostContext = createContext<NhostContextDef>({
-  client: null,
-  auth: {
-    user: null,
-    isLoading: true,
-    isAuthenticated: false,
-  },
+// contexts
+export const NhostClientContext = createContext<NhostClient | null>(null);
+export const NhostSetAuthContext = createContext<Function | null>(null);
+export const NhostAuthContext = createContext<NhostAuthContextDef>({
+  user: null,
+  isLoading: true,
+  isAuthenticated: false,
 });
 
+// Nhost Provider
 export function NhostProvider({
   children,
   url,
@@ -23,14 +24,14 @@ export function NhostProvider({
   storageUrl?: string;
 }) {
   const [constructorHasRun, setConstructorHasRun] = useState(false);
-  const [nhostContext, setAuthContext] = useState<NhostContextDef>({
-    client: null,
-    auth: {
+  const [nhostClient, setNhostClient] = useState<NhostClient | null>(null);
+  const [nhostAuthContext, setNhostAuthContext] = useState<NhostAuthContextDef>(
+    {
       user: null,
       isLoading: true,
       isAuthenticated: false,
-    },
-  });
+    }
+  );
 
   let unsubscribe: Function;
 
@@ -38,29 +39,26 @@ export function NhostProvider({
   const constructor = () => {
     if (constructorHasRun) return;
 
-    const nhost = new NhostClient({
+    const nhostClient = new NhostClient({
       url: url ? url : '',
       authUrl,
       storageUrl,
     });
 
-    setAuthContext({
-      client: nhost,
-      auth: {
-        user: null,
-        isLoading: nhost.auth.isAuthenticated().loading,
-        isAuthenticated: nhost.auth.isAuthenticated().authenticated,
-      },
+    setNhostClient(nhostClient);
+
+    setNhostAuthContext({
+      user: null,
+      isLoading: nhostClient.auth.isAuthenticated().loading,
+      isAuthenticated: nhostClient.auth.isAuthenticated().authenticated,
     });
 
-    unsubscribe = nhost.auth.onAuthStateChanged((_event, session) => {
-      setAuthContext({
-        client: nhost,
-        auth: {
-          user: session ? session.user : null,
-          isLoading: false,
-          isAuthenticated: session !== null,
-        },
+    unsubscribe = nhostClient.auth.onAuthStateChanged((_event, session) => {
+      console.log('auth state changed set nhost auth context');
+      setNhostAuthContext({
+        user: session ? session.user : null,
+        isLoading: false,
+        isAuthenticated: session !== null,
       });
     });
     setConstructorHasRun(true);
@@ -77,8 +75,12 @@ export function NhostProvider({
   });
 
   return (
-    <NhostContext.Provider value={nhostContext}>
-      {children}
-    </NhostContext.Provider>
+    <NhostClientContext.Provider value={nhostClient}>
+      <NhostAuthContext.Provider value={nhostAuthContext}>
+        <NhostSetAuthContext.Provider value={setNhostAuthContext}>
+          {children}
+        </NhostSetAuthContext.Provider>
+      </NhostAuthContext.Provider>
+    </NhostClientContext.Provider>
   );
 }

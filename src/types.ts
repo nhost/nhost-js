@@ -1,5 +1,4 @@
 import { ClientStorage, ClientStorageType, User } from '@nhost/hasura-auth-js';
-import { NhostClient } from './core';
 
 export type NhostClientConstructorParams = {
   url: string;
@@ -12,12 +11,7 @@ export type NhostClientConstructorParams = {
   storageUrl?: string;
 };
 
-export type NhostContextDef = {
-  client: NhostClient | null;
-  auth: NhostAuthContext;
-};
-
-export type NhostAuthContext = {
+export type NhostAuthContextDef = {
   user: User | null;
   isLoading: boolean;
   isAuthenticated: boolean;

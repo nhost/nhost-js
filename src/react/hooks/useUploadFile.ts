@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { NhostContext } from '../context';
+import { NhostClientContext } from '../context';
 
 type UploadState = {
   isLoading: boolean;
@@ -15,7 +15,7 @@ export function useNhostStorageUploader() {
     isError: false,
     error: null,
   });
-  const nhostContext = useContext(NhostContext);
+  const nhost = useContext(NhostClientContext);
 
   const uploadFile = ({
     file,
@@ -23,8 +23,8 @@ export function useNhostStorageUploader() {
     name,
   }: {
     file: File;
-    bucketId: string;
-    name: string;
+    bucketId?: string;
+    name?: string;
   }) => {
     console.log('upload file');
 
@@ -38,7 +38,10 @@ export function useNhostStorageUploader() {
     // 123
 
     console.log('uplad file with headers:');
-    console.log(nhostContext.client?.auth.getAccessToken());
+    console.log(nhost!.auth.getAccessToken());
+    // TODO: Does not work
+
+    // nhost?.storage.upload({ file });
 
     setUploadState({
       isLoading: true,
