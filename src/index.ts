@@ -1,1 +1,2 @@
-export * from './nhost-client';
+export * from './core';
+export * from './react';

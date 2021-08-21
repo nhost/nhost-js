@@ -1,7 +1,7 @@
 import { HasuraAuthClient } from '@nhost/hasura-auth-js';
 import { HasuraStorageClient } from '@nhost/hasura-storage-js';
 
-import { NhostClientConstructorParams } from './utils/types';
+import { NhostClientConstructorParams } from '../types';
 
 export class NhostClient {
   auth: HasuraAuthClient;

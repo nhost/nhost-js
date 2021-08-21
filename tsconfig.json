@@ -12,6 +12,7 @@
     "rootDir": "src",
     "moduleResolution": "node",
     "sourceMap": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "jsx": "react-jsx"
   }
 }
