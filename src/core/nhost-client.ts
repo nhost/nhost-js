@@ -55,8 +55,8 @@ export class NhostClient {
       this.storage.setAccessToken(session?.accessToken);
     });
 
-    this.graphqlUrl = graphqlUrl ? graphqlUrl : `${url}/v1/graphql`;
-    this.functionsUrl = functionsUrl ? functionsUrl : `${url}/v1/functions`;
+    this.graphqlUrl = graphqlUrl ? graphqlUrl : `${url}/graphql`;
+    this.functionsUrl = functionsUrl ? functionsUrl : `${url}/functions`;
   }
 
   public getGraphqlUrl(): string {

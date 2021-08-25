@@ -127,19 +127,6 @@ function generateApolloClient({
   return { client, webSocketClient };
 }
 
-// export function NhostApolloProvider({ children }: { children: ReactNode }) {
-//   return <div>hey!</div>;
-// }
-
-export function TestHej({ children }: { children: ReactNode }) {
-  return (
-    <div>
-      hey!
-      <div>{children}</div>
-    </div>
-  );
-}
-
 export function NhostApolloProvider({
   children,
   headers = {},

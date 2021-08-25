@@ -20,11 +20,13 @@ export function NhostProvider({
   url,
   authUrl,
   storageUrl,
+  graphqlUrl,
 }: {
   children: ReactNode;
   url?: string;
   authUrl?: string;
   storageUrl?: string;
+  graphqlUrl?: string;
 }) {
   const [constructorHasRun, setConstructorHasRun] = useState(false);
   const [nhostClient, setNhostClient] = useState<NhostClient | null>(null);
@@ -49,6 +51,7 @@ export function NhostProvider({
       url: url ? url : '',
       authUrl,
       storageUrl,
+      graphqlUrl,
     });
 
     setNhostClient(nhostClient);
