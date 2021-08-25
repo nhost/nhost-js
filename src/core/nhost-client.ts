@@ -7,8 +7,19 @@ export class NhostClient {
   auth: HasuraAuthClient;
   storage: HasuraStorageClient;
 
+  private graphqlUrl: string;
+  private functionsUrl: string;
+
+  /**
+   * Nhost Client
+   *
+   * @example
+   * const nhost = new NhostClient({ url });
+   *
+   * @docs https://docs.nhost.io/TODO
+   */
   constructor(params: NhostClientConstructorParams) {
-    if (!params.url) throw 'Please specify a baseURL. Docs: TODO.';
+    if (!params.url) throw 'Please specify a `url`. Docs: TODO.';
 
     const {
       url,
@@ -19,6 +30,8 @@ export class NhostClient {
       autoLogin,
       authUrl,
       storageUrl,
+      graphqlUrl,
+      functionsUrl,
     } = params;
 
     this.auth = new HasuraAuthClient({
@@ -41,5 +54,16 @@ export class NhostClient {
     this.auth.onAuthStateChanged((_event, session) => {
       this.storage.setAccessToken(session?.accessToken);
     });
+
+    this.graphqlUrl = graphqlUrl ? graphqlUrl : `${url}/v1/graphql`;
+    this.functionsUrl = functionsUrl ? functionsUrl : `${url}/v1/functions`;
+  }
+
+  public getGraphqlUrl(): string {
+    return this.graphqlUrl;
+  }
+
+  public getFunctionsUrl(): string {
+    return this.functionsUrl;
   }
 }

@@ -9,10 +9,15 @@ export type NhostClientConstructorParams = {
   autoLogin?: boolean;
   authUrl?: string;
   storageUrl?: string;
+  graphqlUrl?: string;
+  functionsUrl?: string;
 };
 
 export type NhostAuthContextDef = {
-  user: User | null;
   isLoading: boolean;
+  isSuccess: boolean;
+  isError: boolean;
+  error: Error | null;
+  user: User | null;
   isAuthenticated: boolean;
 };

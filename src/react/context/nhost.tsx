@@ -6,8 +6,11 @@ import { NhostAuthContextDef } from '../../types';
 export const NhostClientContext = createContext<NhostClient | null>(null);
 export const NhostSetAuthContext = createContext<Function | null>(null);
 export const NhostAuthContext = createContext<NhostAuthContextDef>({
-  user: null,
   isLoading: true,
+  isSuccess: true,
+  isError: false,
+  error: null,
+  user: null,
   isAuthenticated: false,
 });
 
@@ -27,8 +30,11 @@ export function NhostProvider({
   const [nhostClient, setNhostClient] = useState<NhostClient | null>(null);
   const [nhostAuthContext, setNhostAuthContext] = useState<NhostAuthContextDef>(
     {
-      user: null,
       isLoading: true,
+      isSuccess: false,
+      isError: false,
+      error: null,
+      user: null,
       isAuthenticated: false,
     }
   );
@@ -48,16 +54,22 @@ export function NhostProvider({
     setNhostClient(nhostClient);
 
     setNhostAuthContext({
-      user: null,
       isLoading: nhostClient.auth.isAuthenticated().loading,
+      isSuccess: nhostClient.auth.isAuthenticated().loading === false,
+      isError: false,
+      error: null,
+      user: nhostClient.auth.getUser(),
       isAuthenticated: nhostClient.auth.isAuthenticated().authenticated,
     });
 
     unsubscribe = nhostClient.auth.onAuthStateChanged((_event, session) => {
       console.log('auth state changed set nhost auth context');
       setNhostAuthContext({
-        user: session ? session.user : null,
         isLoading: false,
+        isSuccess: true,
+        isError: false,
+        error: null,
+        user: session ? session.user : null,
         isAuthenticated: session !== null,
       });
     });
