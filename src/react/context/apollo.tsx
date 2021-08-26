@@ -33,7 +33,7 @@ function generateApolloClient({
   cache: InMemoryCache;
   onError?: RequestHandler;
 }) {
-  const getheaders = () => {
+  const getAuthHeaders = () => {
     // add headers
     const resHeaders = {
       ...headers,
@@ -41,7 +41,7 @@ function generateApolloClient({
 
     // add auth headers if signed in
     // or add 'public' role if not signed in
-    if (nhost.auth.isAuthenticated()) {
+    if (nhost.auth.isAuthenticated().authenticated) {
       resHeaders.authorization = `Bearer ${nhost.auth.getAccessToken()}`;
     } else {
       resHeaders.role = publicRole;
@@ -62,7 +62,7 @@ function generateApolloClient({
       lazy: true,
       reconnect: true,
       connectionParams: () => {
-        const headers = getheaders();
+        const headers = getAuthHeaders();
         return {
           headers,
         };
@@ -77,11 +77,10 @@ function generateApolloClient({
     uri,
   });
 
-  const authLink = setContext((a, { headers }) => {
+  const authLink = setContext(() => {
     return {
       headers: {
-        ...headers,
-        ...getheaders(),
+        ...getAuthHeaders(),
       },
     };
   });
@@ -142,11 +141,7 @@ export function NhostApolloProvider({
   cache?: InMemoryCache;
   onError?: RequestHandler;
 }) {
-  console.log('inside NhostApolloProvider');
-
   const { nhost } = useNhost();
-
-  console.log(nhost.getFunctionsUrl());
 
   const [constructorHasRun, setConstructorHasRun] = useState(false);
   const [apolloClient, setApolloClient] = useState<ApolloClient<any> | null>(
@@ -201,26 +196,12 @@ export function NhostApolloProvider({
 
   // maybe skip if !inBrowser()?
   if (!apolloClient) {
-    console.log('no apollo client..');
-
-    console.log('loading apollo client...');
-    return <div>Loading</div>;
+    return <div>Apollo Client not yet available</div>;
   }
 
-  console.log('apolloClient available. Render ApolloProvider');
-  console.log(apolloClient);
+  // if (!isBrowser()) {
+  //   return <div>no</div>;
+  // }
 
-  console.log(typeof window);
-
-  if (!isBrowser()) {
-    console.log('not in browser');
-
-    return <div>no</div>;
-  }
-
-  return (
-    <ApolloProvider client={apolloClient}>
-      in apollo provider{children}
-    </ApolloProvider>
-  );
+  return <ApolloProvider client={apolloClient}>{children}</ApolloProvider>;
 }

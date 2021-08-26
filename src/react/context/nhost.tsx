@@ -66,7 +66,6 @@ export function NhostProvider({
     });
 
     unsubscribe = nhostClient.auth.onAuthStateChanged((_event, session) => {
-      console.log('auth state changed set nhost auth context');
       setNhostAuthContext({
         isLoading: false,
         isSuccess: true,

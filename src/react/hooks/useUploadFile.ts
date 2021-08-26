@@ -37,7 +37,7 @@ export function useNhostStorageUploader() {
 
     // 123
 
-    console.log('uplad file with headers:');
+    console.log('upload file with headers:');
     console.log(nhost!.auth.getAccessToken());
     // TODO: Does not work
 
