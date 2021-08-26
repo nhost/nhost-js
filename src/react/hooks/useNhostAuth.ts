@@ -24,6 +24,8 @@ export function useNhostAuth() {
 
       const { session, error } = await nhost?.auth.signIn(params);
 
+      const { isAuthenticated } = nhost.auth.getAuthenticationStatus();
+
       if (error) {
         return setNhostAuthContext({
           isLoading: false,
@@ -31,7 +33,7 @@ export function useNhostAuth() {
           isError: true,
           error,
           user: nhost.auth.getUser(),
-          isAuthenticated: nhost.auth.isAuthenticated().authenticated,
+          isAuthenticated,
         });
       }
 
@@ -42,7 +44,7 @@ export function useNhostAuth() {
           isError: true,
           error: new Error('No session available'),
           user: nhost.auth.getUser(),
-          isAuthenticated: nhost.auth.isAuthenticated().authenticated,
+          isAuthenticated,
         });
       }
 
@@ -52,13 +54,14 @@ export function useNhostAuth() {
       return { session, error };
     },
     signOut: async () => {
+      const { isAuthenticated } = nhost.auth.getAuthenticationStatus();
       setNhostAuthContext({
         isLoading: true,
         isSuccess: false,
         isError: true,
         error: new Error('No session available'),
         user: nhost.auth.getUser(),
-        isAuthenticated: nhost.auth.isAuthenticated().authenticated,
+        isAuthenticated,
       });
 
       // onAuthStateChange in the provider will set the NhostAuthContext if sign

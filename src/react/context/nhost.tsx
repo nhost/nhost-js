@@ -56,23 +56,27 @@ export function NhostProvider({
 
     setNhostClient(nhostClient);
 
+    const { isAuthenticated, isLoading } =
+      nhostClient.auth.getAuthenticationStatus();
+
     setNhostAuthContext({
-      isLoading: nhostClient.auth.isAuthenticated().loading,
-      isSuccess: nhostClient.auth.isAuthenticated().loading === false,
+      isLoading,
+      isSuccess: isLoading === false,
       isError: false,
       error: null,
       user: nhostClient.auth.getUser(),
-      isAuthenticated: nhostClient.auth.isAuthenticated().authenticated,
+      isAuthenticated,
     });
 
     unsubscribe = nhostClient.auth.onAuthStateChanged((_event, session) => {
+      const { isAuthenticated } = nhostClient.auth.getAuthenticationStatus();
       setNhostAuthContext({
         isLoading: false,
         isSuccess: true,
         isError: false,
         error: null,
         user: session ? session.user : null,
-        isAuthenticated: session !== null,
+        isAuthenticated,
       });
     });
     setConstructorHasRun(true);

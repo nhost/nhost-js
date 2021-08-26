@@ -41,7 +41,7 @@ function generateApolloClient({
 
     // add auth headers if signed in
     // or add 'public' role if not signed in
-    if (nhost.auth.isAuthenticated().authenticated) {
+    if (nhost.auth.isAuthenticated()) {
       resHeaders.authorization = `Bearer ${nhost.auth.getAccessToken()}`;
     } else {
       resHeaders.role = publicRole;

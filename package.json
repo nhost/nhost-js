@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/nhost/nhost-js#readme",
   "dependencies": {
-    "@nhost/hasura-auth-js": "^0.0.3",
+    "@nhost/hasura-auth-js": "^0.0.4",
     "@nhost/hasura-storage-js": "^0.0.3",
     "axios": "^0.21.1",
     "jwt-decode": "^3.1.2",
