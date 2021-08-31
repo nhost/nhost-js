@@ -55,8 +55,7 @@ export class NhostClient {
       this.storage.setAccessToken(session?.accessToken);
     });
 
-    // TODO: Change to /graphql only (without trailing `/`)
-    this.graphqlUrl = graphqlUrl ? graphqlUrl : `${url}/graphql/`;
+    this.graphqlUrl = graphqlUrl ? graphqlUrl : `${url}/graphql`;
     this.functionsUrl = functionsUrl ? functionsUrl : `${url}/functions/`;
   }
 
