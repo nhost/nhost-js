@@ -21,3 +21,7 @@ export type NhostAuthContextDef = {
   user: User | null;
   isAuthenticated: boolean;
 };
+
+export type NhostFunctionsConstructorParams = {
+  url: string;
+};

@@ -1,14 +1,15 @@
 import { HasuraAuthClient } from '@nhost/hasura-auth-js';
 import { HasuraStorageClient } from '@nhost/hasura-storage-js';
+import { NhostFunctionsClient } from '../clients/functions';
 
 import { NhostClientConstructorParams } from '../types';
 
 export class NhostClient {
   auth: HasuraAuthClient;
   storage: HasuraStorageClient;
+  functions: NhostFunctionsClient;
 
   private graphqlUrl: string;
-  private functionsUrl: string;
 
   /**
    * Nhost Client
@@ -19,7 +20,7 @@ export class NhostClient {
    * @docs https://docs.nhost.io/TODO
    */
   constructor(params: NhostClientConstructorParams) {
-    if (!params.url) throw 'Please specify a `url`. Docs: TODO.';
+    if (!params.url) throw 'Please specify a `url`. Docs: [todo]!';
 
     const {
       url,
@@ -47,23 +48,30 @@ export class NhostClient {
       url: storageUrl ? storageUrl : `${url}/storage`,
     });
 
+    this.functions = new NhostFunctionsClient({
+      url: functionsUrl ? functionsUrl : `${url}/functions`,
+    });
+
     // set current token if token is already accessable
     this.storage.setAccessToken(this.auth.getAccessToken());
+    this.functions.setAccessToken(this.auth.getAccessToken());
 
-    // update access token for storage
+    // update access token for clients
     this.auth.onAuthStateChanged((_event, session) => {
       this.storage.setAccessToken(session?.accessToken);
+      this.functions.setAccessToken(session?.accessToken);
+    });
+
+    // update access token for clients
+    this.auth.onTokenChanged((session) => {
+      this.storage.setAccessToken(session?.accessToken);
+      this.functions.setAccessToken(session?.accessToken);
     });
 
     this.graphqlUrl = graphqlUrl ? graphqlUrl : `${url}/graphql`;
-    this.functionsUrl = functionsUrl ? functionsUrl : `${url}/functions/`;
   }
 
   public getGraphqlUrl(): string {
     return this.graphqlUrl;
-  }
-
-  public getFunctionsUrl(): string {
-    return this.functionsUrl;
   }
 }
