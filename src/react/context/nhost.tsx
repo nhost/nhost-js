@@ -45,7 +45,9 @@ export function NhostProvider({
 
   // only run once
   const constructor = () => {
-    if (constructorHasRun) return;
+    if (constructorHasRun) {
+      return; // Early exit. Only run constructor once
+    }
 
     const nhostClient = new NhostClient({
       url: url ? url : '',
