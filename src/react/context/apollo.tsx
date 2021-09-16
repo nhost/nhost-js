@@ -18,26 +18,36 @@ import { SubscriptionClient } from 'subscriptions-transport-ws';
 
 const isBrowser = () => typeof window !== 'undefined';
 
-function generateApolloClient({
-  nhost,
-  headers,
-  publicRole = 'public',
-  cache,
-  connectToDevTools,
-  onError,
-}: {
+type GenerateApolloClientOptions = {
+  graphqlUrl?: string;
   nhost: NhostClient;
   headers: any;
   publicRole: string;
   connectToDevTools: boolean;
   cache: InMemoryCache;
   onError?: RequestHandler;
-}) {
+};
+
+function generateApolloClient({
+  graphqlUrl,
+  nhost,
+  headers,
+  publicRole = 'public',
+  cache,
+  connectToDevTools,
+  onError,
+}: GenerateApolloClientOptions) {
   const getAuthHeaders = () => {
     // add headers
     const resHeaders = {
       ...headers,
+      'Sec-WebSocket-Protocol': 'graphql-ws',
     };
+
+    // if graphqlUrl is being used, don't use `nhost`
+    if (graphqlUrl) {
+      return resHeaders;
+    }
 
     // add auth headers if signed in
     // or add 'public' role if not signed in
@@ -50,7 +60,7 @@ function generateApolloClient({
     return resHeaders;
   };
 
-  const uri = nhost.getGraphqlUrl();
+  const uri = graphqlUrl ? graphqlUrl : nhost.getGraphqlUrl();
 
   const wsUri = uri.startsWith('https')
     ? uri.replace(/^https/, 'wss')
@@ -126,22 +136,30 @@ function generateApolloClient({
   return { client, webSocketClient };
 }
 
-export function NhostApolloProvider({
-  children,
-  headers = {},
-  publicRole = 'public',
-  cache = new InMemoryCache(),
-  connectToDevTools = false,
-  onError,
-}: {
+type NhostApolloProviderProps = {
+  graphqlUrl?: string;
   children: ReactNode;
   headers?: any;
   publicRole?: string;
   connectToDevTools?: boolean;
   cache?: InMemoryCache;
   onError?: RequestHandler;
-}) {
+};
+
+export function NhostApolloProvider({
+  graphqlUrl,
+  children,
+  headers = {},
+  publicRole = 'public',
+  cache = new InMemoryCache(),
+  connectToDevTools = false,
+  onError,
+}: NhostApolloProviderProps) {
   const { nhost } = useNhost();
+
+  console.log('inside Nhost Apollo Provider');
+
+  console.log({ graphqlUrl });
 
   const [constructorHasRun, setConstructorHasRun] = useState(false);
   const [apolloClient, setApolloClient] = useState<ApolloClient<any> | null>(
@@ -152,6 +170,7 @@ export function NhostApolloProvider({
     if (constructorHasRun) return;
 
     const { client, webSocketClient } = generateApolloClient({
+      graphqlUrl,
       nhost,
       headers,
       publicRole,
@@ -159,6 +178,16 @@ export function NhostApolloProvider({
       connectToDevTools,
       onError,
     });
+
+    // if graphqlUrl is being used, don't use `nhost`
+    // instead, early exit.
+    if (graphqlUrl) {
+      console.log('graphql url available, return');
+
+      setApolloClient(client);
+      setConstructorHasRun(true);
+      return;
+    }
 
     if (nhost.auth && webSocketClient) {
       nhost.auth.onTokenChanged(() => {
@@ -188,7 +217,6 @@ export function NhostApolloProvider({
     }
 
     setApolloClient(client);
-
     setConstructorHasRun(true);
   };
 
