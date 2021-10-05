@@ -60,7 +60,6 @@ export function NhostProvider({
 
     const { isAuthenticated, isLoading } =
       nhostClient.auth.getAuthenticationStatus();
-
     setNhostAuthContext({
       isLoading,
       isSuccess: isLoading === false,
