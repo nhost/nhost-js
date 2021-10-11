@@ -46,10 +46,10 @@
   resolved "https://registry.npmjs.org/@graphql-typed-document-node/core/-/core-3.1.0.tgz"
   integrity sha512-wYn6r8zVZyQJ6rQaALBEln5B1pzxb9shV5Ef97kTvn6yVGrqyXVnDqnU24MXnFubR+rZjBY9NWuxX3FB2sTsjg==
 
-"@nhost/hasura-auth-js@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@nhost/hasura-auth-js/-/hasura-auth-js-0.0.10.tgz#cb0e6b40c667fb1c5e1dd928413814b425398f4a"
-  integrity sha512-F/z3bdCG2nWGfLmRPJAlTn1k8WTv9bSZZfT3f/iizTO6ipjTK/hRYkDtFSJSmg/tj3alIVkwNX5hhlnwyBQRMA==
+"@nhost/hasura-auth-js@^0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@nhost/hasura-auth-js/-/hasura-auth-js-0.0.11.tgz#77ccf2a18bdb2f2dfd137e4892519086308d6ff8"
+  integrity sha512-UjUWfSwgSEE11ZFc/sILIi7DiosGTZZ93sP/xnvBWqoYjpJZr+t/d3TA4tQLDPXYs7HcDiDC4F+yJZQiICx1bQ==
   dependencies:
     "@types/jwt-decode" "^2.2.1"
     axios "^0.21.1"
