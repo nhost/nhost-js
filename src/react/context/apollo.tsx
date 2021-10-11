@@ -157,10 +157,6 @@ export function NhostApolloProvider({
 }: NhostApolloProviderProps) {
   const { nhost } = useNhost();
 
-  console.log('inside Nhost Apollo Provider');
-
-  console.log({ graphqlUrl });
-
   const [constructorHasRun, setConstructorHasRun] = useState(false);
   const [apolloClient, setApolloClient] = useState<ApolloClient<any> | null>(
     null
@@ -182,8 +178,6 @@ export function NhostApolloProvider({
     // if graphqlUrl is being used, don't use `nhost`
     // instead, early exit.
     if (graphqlUrl) {
-      console.log('graphql url available, return');
-
       setApolloClient(client);
       setConstructorHasRun(true);
       return;
