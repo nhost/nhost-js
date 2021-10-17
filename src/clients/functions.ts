@@ -1,5 +1,8 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { NhostFunctionsConstructorParams } from '../types';
+
+export type NhostFunctionsConstructorParams = {
+  url: string;
+};
 
 export class NhostFunctionsClient {
   private instance: AxiosInstance;
@@ -16,7 +19,7 @@ export class NhostFunctionsClient {
     });
   }
 
-  public post(url: string, data: any, config?: AxiosRequestConfig) {
+  private post(url: string, data: any, config?: AxiosRequestConfig) {
     const headers = {
       ...config?.headers,
       ...this.generateAccessTokenHeaders(),
