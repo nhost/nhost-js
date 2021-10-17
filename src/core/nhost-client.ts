@@ -1,6 +1,6 @@
 import { HasuraAuthClient } from '@nhost/hasura-auth-js';
 import { HasuraStorageClient } from '@nhost/hasura-storage-js';
-import { ClientStorage, ClientStorageType, User } from '@nhost/hasura-auth-js';
+import { ClientStorage, ClientStorageType } from '@nhost/hasura-auth-js';
 
 import { NhostFunctionsClient } from '../clients/functions';
 
