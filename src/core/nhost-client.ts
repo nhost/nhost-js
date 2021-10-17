@@ -1,8 +1,21 @@
 import { HasuraAuthClient } from '@nhost/hasura-auth-js';
 import { HasuraStorageClient } from '@nhost/hasura-storage-js';
+import { ClientStorage, ClientStorageType, User } from '@nhost/hasura-auth-js';
+
 import { NhostFunctionsClient } from '../clients/functions';
 
-import { NhostClientConstructorParams } from '../types';
+export type NhostClientConstructorParams = {
+  url: string;
+  refreshIntervalTime?: number;
+  clientStorage?: ClientStorage;
+  clientStorageType?: ClientStorageType;
+  autoRefreshToken?: boolean;
+  autoLogin?: boolean;
+  authUrl?: string;
+  storageUrl?: string;
+  graphqlUrl?: string;
+  functionsUrl?: string;
+};
 
 export class NhostClient {
   auth: HasuraAuthClient;
