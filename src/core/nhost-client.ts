@@ -49,7 +49,7 @@ export class NhostClient {
     } = params;
 
     this.auth = new HasuraAuthClient({
-      url: authUrl ? authUrl : `${url}/auth`,
+      url: authUrl ? authUrl : `${url}/v1/auth`,
       refreshIntervalTime,
       clientStorage,
       clientStorageType,
@@ -58,11 +58,11 @@ export class NhostClient {
     });
 
     this.storage = new HasuraStorageClient({
-      url: storageUrl ? storageUrl : `${url}/storage`,
+      url: storageUrl ? storageUrl : `${url}/v1/storage`,
     });
 
     this.functions = new NhostFunctionsClient({
-      url: functionsUrl ? functionsUrl : `${url}/functions`,
+      url: functionsUrl ? functionsUrl : `${url}/v1/functions`,
     });
 
     // set current token if token is already accessable
