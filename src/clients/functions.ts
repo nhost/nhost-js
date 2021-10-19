@@ -15,7 +15,6 @@ export class NhostFunctionsClient {
     this.instance = axios.create({
       baseURL: url,
       timeout: 5000,
-      headers: { 'X-Custom-Header': 'foobar' },
     });
   }
 
