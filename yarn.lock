@@ -23,10 +23,10 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@nhost/hasura-auth-js@^0.0.11":
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/@nhost/hasura-auth-js/-/hasura-auth-js-0.0.11.tgz#77ccf2a18bdb2f2dfd137e4892519086308d6ff8"
-  integrity sha512-UjUWfSwgSEE11ZFc/sILIi7DiosGTZZ93sP/xnvBWqoYjpJZr+t/d3TA4tQLDPXYs7HcDiDC4F+yJZQiICx1bQ==
+"@nhost/hasura-auth-js@^0.0.12":
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/@nhost/hasura-auth-js/-/hasura-auth-js-0.0.12.tgz#1e29ae1ac1ed0d064f7572e5b8162381b77501ff"
+  integrity sha512-lZ66uv277P7s/q/nJ2faOuv6glwhyR0cu1rQ/WaMQD3VQnwZY1SxzmZuIzgmbjSAZRjHYQp6jET7jovqyF37fQ==
   dependencies:
     "@types/jwt-decode" "^2.2.1"
     axios "^0.21.1"
