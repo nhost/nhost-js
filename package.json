@@ -1,6 +1,6 @@
 {
   "name": "@nhost/nhost-js",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Nhost JavaScript SDK",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
