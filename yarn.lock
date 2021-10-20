@@ -33,10 +33,10 @@
     jwt-decode "^2.2.0"
     query-string "^7.0.1"
 
-"@nhost/hasura-storage-js@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@nhost/hasura-storage-js/-/hasura-storage-js-0.0.4.tgz#2848c67563afc1e2cdcf024f730724a799205700"
-  integrity sha512-ebAqSrjjacDOe+A674l7/MoKloz30NWrTZBcRNC5oxI76SCJSTrvIX56DOezY1AD5SZAuHdIZaFYiK+mLLD08A==
+"@nhost/hasura-storage-js@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@nhost/hasura-storage-js/-/hasura-storage-js-0.0.5.tgz#de085189c582960194c0cc0b2bc2f096affc2168"
+  integrity sha512-6XDm57bt0f2skeglinP4HCUsWbyipb+8MZLld5XPqxaNTM4lUs7QlY1VLOcukL91YnF6IC4kZYYD9ge+on6JUg==
   dependencies:
     axios "^0.21.1"
 
