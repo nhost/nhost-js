@@ -27,7 +27,7 @@ export class NhostFunctionsClient {
     return this.instance.post(url, data, { ...config, headers });
   }
 
-  public call(url: string, data: any, config: AxiosRequestConfig) {
+  public call(url: string, data: any, config?: AxiosRequestConfig) {
     return this.post(url, data, config);
   }
 
