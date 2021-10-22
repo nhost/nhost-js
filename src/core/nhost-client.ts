@@ -3,26 +3,22 @@ import { HasuraStorageClient } from '@nhost/hasura-storage-js';
 import { ClientStorage, ClientStorageType } from '@nhost/hasura-auth-js';
 
 import { NhostFunctionsClient } from '../clients/functions';
+import { NhostGraphqlClient } from '../clients/graphql';
 
 export type NhostClientConstructorParams = {
-  url: string;
+  backendUrl: string;
   refreshIntervalTime?: number;
   clientStorage?: ClientStorage;
   clientStorageType?: ClientStorageType;
   autoRefreshToken?: boolean;
   autoLogin?: boolean;
-  authUrl?: string;
-  storageUrl?: string;
-  graphqlUrl?: string;
-  functionsUrl?: string;
 };
 
 export class NhostClient {
   auth: HasuraAuthClient;
   storage: HasuraStorageClient;
   functions: NhostFunctionsClient;
-
-  private graphqlUrl: string;
+  graphql: NhostGraphqlClient;
 
   /**
    * Nhost Client
@@ -33,23 +29,20 @@ export class NhostClient {
    * @docs https://docs.nhost.io/TODO
    */
   constructor(params: NhostClientConstructorParams) {
-    if (!params.url) throw 'Please specify a `url`. Docs: [todo]!';
+    if (!params.backendUrl)
+      throw 'Please specify a `backendUrl`. Docs: [todo]!';
 
     const {
-      url,
+      backendUrl,
       refreshIntervalTime,
       clientStorage,
       clientStorageType,
       autoRefreshToken,
       autoLogin,
-      authUrl,
-      storageUrl,
-      graphqlUrl,
-      functionsUrl,
     } = params;
 
     this.auth = new HasuraAuthClient({
-      url: authUrl ? authUrl : `${url}/v1/auth`,
+      url: `${backendUrl}/v1/auth`,
       refreshIntervalTime,
       clientStorage,
       clientStorageType,
@@ -58,33 +51,34 @@ export class NhostClient {
     });
 
     this.storage = new HasuraStorageClient({
-      url: storageUrl ? storageUrl : `${url}/v1/storage`,
+      url: `${backendUrl}/v1/storage`,
     });
 
     this.functions = new NhostFunctionsClient({
-      url: functionsUrl ? functionsUrl : `${url}/v1/functions`,
+      url: `${backendUrl}/v1/functions`,
+    });
+
+    this.graphql = new NhostGraphqlClient({
+      url: `${backendUrl}/v1/graphql`,
     });
 
     // set current token if token is already accessable
     this.storage.setAccessToken(this.auth.getAccessToken());
     this.functions.setAccessToken(this.auth.getAccessToken());
+    this.graphql.setAccessToken(this.auth.getAccessToken());
 
     // update access token for clients
     this.auth.onAuthStateChanged((_event, session) => {
       this.storage.setAccessToken(session?.accessToken);
       this.functions.setAccessToken(session?.accessToken);
+      this.graphql.setAccessToken(session?.accessToken);
     });
 
     // update access token for clients
     this.auth.onTokenChanged((session) => {
       this.storage.setAccessToken(session?.accessToken);
       this.functions.setAccessToken(session?.accessToken);
+      this.graphql.setAccessToken(session?.accessToken);
     });
-
-    this.graphqlUrl = graphqlUrl ? graphqlUrl : `${url}/v1/graphql`;
-  }
-
-  public getGraphqlUrl(): string {
-    return this.graphqlUrl;
   }
 }
