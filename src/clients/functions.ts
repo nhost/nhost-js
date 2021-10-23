@@ -42,7 +42,7 @@ export class NhostFunctionsClient {
 
   private generateAccessTokenHeaders() {
     if (!this.accessToken) {
-      return {};
+      return;
     }
 
     return {

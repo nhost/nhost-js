@@ -47,7 +47,7 @@ export class NhostGraphqlClient {
   }
 
   public getUrl(): string {
-    return `${this.url}/v1/graphql`;
+    return this.url;
   }
 
   public setAccessToken(accessToken: string | undefined) {
@@ -61,7 +61,7 @@ export class NhostGraphqlClient {
 
   private generateAccessTokenHeaders() {
     if (!this.accessToken) {
-      return {};
+      return;
     }
 
     return {
