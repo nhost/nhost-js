@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { FunctionCallResponse } from '../types';
 
 export type NhostFunctionsConstructorParams = {
   url: string;
@@ -18,17 +19,33 @@ export class NhostFunctionsClient {
     });
   }
 
-  private post(url: string, data: any, config?: AxiosRequestConfig) {
+  public async call(
+    url: string,
+    data: any,
+    config?: AxiosRequestConfig
+  ): Promise<FunctionCallResponse> {
     const headers = {
       ...config?.headers,
       ...this.generateAccessTokenHeaders(),
     };
 
-    return this.instance.post(url, data, { ...config, headers });
-  }
+    let res;
+    try {
+      res = await this.instance.post(url, data, { ...config, headers });
+    } catch (error) {
+      if (error instanceof Error) {
+        return { res: null, error };
+      }
+    }
 
-  public call(url: string, data: any, config?: AxiosRequestConfig) {
-    return this.post(url, data, config);
+    if (!res) {
+      return {
+        res: null,
+        error: Error('Unable to make post request to funtion'),
+      };
+    }
+
+    return { res, error: null };
   }
 
   public setAccessToken(accessToken: string | undefined) {

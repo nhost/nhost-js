@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { GraphqlRequestResponse, GraphqlResponse } from '../types';
 
 export type NhostGraphqlConstructorParams = {
   url: string;
@@ -24,7 +25,7 @@ export class NhostGraphqlClient {
     document: string,
     variables?: any,
     config?: AxiosRequestConfig
-  ) {
+  ): Promise<GraphqlRequestResponse> {
     // add auth headers if any
     const headers = {
       ...config?.headers,
@@ -33,17 +34,48 @@ export class NhostGraphqlClient {
 
     const operationName = '';
 
-    const { data } = await this.instance.post(
-      '',
-      {
-        operationName: operationName ? operationName : undefined,
-        query: document,
-        variables,
-      },
-      { ...config, headers }
-    );
+    let responseData;
+    try {
+      const res = await this.instance.post(
+        '',
+        {
+          operationName: operationName ? operationName : undefined,
+          query: document,
+          variables,
+        },
+        { ...config, headers }
+      );
 
-    return data;
+      responseData = res.data;
+    } catch (error) {
+      if (error instanceof Error) {
+        return { data: null, error };
+      }
+      console.error(error);
+      return { data: null, error: Error('Unable to get do GraphQL request') };
+    }
+
+    if (
+      typeof responseData !== 'object' ||
+      Array.isArray(responseData) ||
+      responseData === null
+    ) {
+      return {
+        data: null,
+        error: Error('incorrect response data from GraphQL server'),
+      };
+    }
+
+    responseData = responseData as GraphqlResponse;
+
+    if (responseData.errors) {
+      return {
+        data: null,
+        error: responseData.errors,
+      };
+    }
+
+    return { data: responseData.data, error: null };
   }
 
   public getUrl(): string {
