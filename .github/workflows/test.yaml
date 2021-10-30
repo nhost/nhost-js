@@ -31,7 +31,7 @@ jobs:
       - name: Start Nhost Backend
         run: |
           cd test/backend
-          nhost dev -d
+          nhost dev -d --no-browser &
 
       - name: Wait for Nhost Backend to start
         run: |
