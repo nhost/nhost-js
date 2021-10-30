@@ -22,6 +22,7 @@
     "build": "run-s build:esm build:cjs",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir lib/cjs",
+    "test:backend:start": "cd test/backend; nhost dev -d",
     "test": "jest --runInBand"
   },
   "repository": {
@@ -36,6 +37,7 @@
     "query-string": "^7.0.1"
   },
   "devDependencies": {
+    "@types/jest": "^27.0.2",
     "np": "^7.5.0",
     "npm-run-all": "^4.1.5",
     "ts-jest": "^27.0.7",
