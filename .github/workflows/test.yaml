@@ -24,7 +24,6 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Test run docker
+      - name: Installint nhost CLI
         run: |
-          npm ci
-          docker run hello-world
+          curl -L https://raw.githubusercontent.com/nhost/cli/main/get.sh | bash
