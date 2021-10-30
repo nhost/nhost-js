@@ -30,5 +30,6 @@ jobs:
 
       - name: Run Nhost CLI
         run: |
+          git init
           nhost init -y
           nhost dev -d
