@@ -24,6 +24,11 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Installint nhost CLI
+      - name: Install nhost CLI
         run: |
           curl -L https://raw.githubusercontent.com/nhost/cli/main/get.sh | bash
+
+      - name: Run Nhost CLI
+        run: |
+          nhost init -y
+          nhost dev -d
