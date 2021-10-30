@@ -28,7 +28,15 @@ jobs:
         run: |
           curl -L https://raw.githubusercontent.com/nhost/cli/main/get.sh | bash
 
-      - name: Run Nhost CLI
+      - name: Start Nhost Backend
         run: |
           cd test/backend
           nhost dev -d
+
+      - name: Wait for Nhost Backend to start
+        run: |
+          npx -y wait-on http://localhost:1337/v1/auth/healthz
+
+      - name: Run tests
+        run: |
+          npm t
