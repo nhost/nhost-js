@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ['12', '14']
+        node: ['16']
 
     runs-on: ${{ matrix.os }}
 
@@ -24,7 +24,20 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Test run docker
+      - name: Install nhost CLI
+        run: |
+          curl -L https://raw.githubusercontent.com/nhost/cli/main/get.sh | bash
+
+      - name: Start Nhost Backend
+        run: |
+          cd test/backend
+          nhost dev -d --no-browser &
+
+      - name: Wait for Nhost Backend to start
+        run: |
+          npx -y wait-on http://localhost:1337/v1/auth/healthz -i 500 -t 120000
+
+      - name: Run tests
         run: |
           npm ci
-          docker run hello-world
+          npm t

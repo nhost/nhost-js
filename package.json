@@ -2,6 +2,13 @@
   "name": "@nhost/nhost-js",
   "version": "0.1.4",
   "description": "Nhost JavaScript SDK",
+  "keywords": [
+    "nhost"
+  ],
+  "author": "Nhost",
+  "homepage": "https://github.com/nhost/nhost-js",
+  "bugs": "https://github.com/nhost/nhost-js/issues",
+  "license": "MIT",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./lib/esm/index.d.ts",
@@ -15,18 +22,13 @@
     "build": "run-s build:esm build:cjs",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir lib/cjs",
+    "test:backend:start": "cd test/backend; nhost dev -d",
     "test": "jest --runInBand"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nhost/nhost-js.git"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/nhost/nhost-js/issues"
-  },
-  "homepage": "https://github.com/nhost/nhost-js#readme",
   "dependencies": {
     "@nhost/hasura-auth-js": "^0.0.13",
     "@nhost/hasura-storage-js": "^0.0.5",
@@ -35,6 +37,7 @@
     "query-string": "^7.0.1"
   },
   "devDependencies": {
+    "@types/jest": "^27.0.2",
     "np": "^7.5.0",
     "npm-run-all": "^4.1.5",
     "ts-jest": "^27.0.7",
