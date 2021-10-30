@@ -12,10 +12,10 @@
     "lib/"
   ],
   "scripts": {
-    "build": "yarn build:esm && yarn build:cjs",
+    "build": "run-s build:esm build:cjs",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir lib/cjs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --runInBand"
   },
   "repository": {
     "type": "git",
@@ -36,8 +36,9 @@
   },
   "devDependencies": {
     "np": "^7.5.0",
+    "npm-run-all": "^4.1.5",
+    "ts-jest": "^27.0.7",
     "typedoc": "^0.22.6",
     "typescript": "^4.4.2"
-  },
-  "peerDependencies": {}
+  }
 }
