@@ -9,19 +9,19 @@
   "homepage": "https://github.com/nhost/nhost-js",
   "bugs": "https://github.com/nhost/nhost-js/issues",
   "license": "MIT",
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./lib/esm/index.d.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
   "publishConfig": {
     "access": "public"
   },
   "files": [
-    "lib/"
+    "dist/"
   ],
   "scripts": {
     "build": "run-s build:esm build:cjs",
     "build:esm": "tsc",
-    "build:cjs": "tsc --module commonjs --outDir lib/cjs",
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "test:backend:start": "cd test/backend; nhost dev -d",
     "test": "jest --runInBand"
   },
