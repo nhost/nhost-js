@@ -2,12 +2,10 @@
 <h2 align="center">Nhost JavaScript SDK</h2>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-2.2.1-blue.svg?cacheSeconds=2592000" />
+  <img alt="npm" src="https://img.shields.io/npm/v/@nhost/nhost-js">
+  <img alt="npm" src="https://img.shields.io/npm/dm/@nhost/nhost-js">
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-yellow.svg" alt="license: MIT" />
-  </a>
-  <a href="https://commitizen.github.io/cz-cli">
-    <img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="commitizen: friendly" />
   </a>
   <a href="https://prettier.io">
     <img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg" alt="code style: prettier" />
