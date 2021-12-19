@@ -25,8 +25,8 @@ export class NhostFunctionsClient {
     config?: AxiosRequestConfig
   ): Promise<FunctionCallResponse> {
     const headers = {
-      ...config?.headers,
       ...this.generateAccessTokenHeaders(),
+      ...config?.headers,
     };
 
     let res;
