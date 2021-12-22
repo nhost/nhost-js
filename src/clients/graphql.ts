@@ -17,7 +17,6 @@ export class NhostGraphqlClient {
     this.accessToken = null;
     this.instance = axios.create({
       baseURL: url,
-      timeout: 5000,
     });
   }
 
