@@ -53,3 +53,4 @@ Access Nhost Functions methods via `nhost.functions`.
 ## Documentation
 
 [Coming soon](https://docs.nhost.io)
+
