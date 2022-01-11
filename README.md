@@ -54,3 +54,4 @@ Access Nhost Functions methods via `nhost.functions`.
 
 [Coming soon](https://docs.nhost.io)
 
+123
