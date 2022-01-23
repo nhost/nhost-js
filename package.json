@@ -16,7 +16,8 @@
     "access": "public"
   },
   "files": [
-    "dist/"
+    "dist",
+    "src"
   ],
   "scripts": {
     "build": "run-p build:esm build:cjs",
