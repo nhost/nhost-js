@@ -2,13 +2,32 @@
   "name": "@nhost/nhost-js",
   "version": "0.2.4",
   "description": "Nhost JavaScript SDK",
+  "license": "MIT",
   "keywords": [
-    "nhost"
+    "nhost",
+    "hasura",
+    "storage",
+    "auth",
+    "authentication",
+    "graphql",
+    "postgresql",
+    "realtime"
   ],
   "author": "Nhost",
-  "homepage": "https://github.com/nhost/nhost-js",
+  "homepage": "https://nhost.io",
   "bugs": "https://github.com/nhost/nhost-js/issues",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nhost/nhost-js.git"
+  },
+  "scripts": {
+    "build": "run-p build:esm build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
+    "test:backend:start": "cd test/backend; nhost dev -d",
+    "test": "jest --runInBand",
+    "semantic-release": "semantic-release"
+  },
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
@@ -19,18 +38,6 @@
     "dist",
     "src"
   ],
-  "scripts": {
-    "build": "run-p build:esm build:cjs",
-    "build:esm": "tsc",
-    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
-    "test:backend:start": "cd test/backend; nhost dev -d",
-    "test": "jest --runInBand",
-    "semantic-release": "semantic-release"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nhost/nhost-js.git"
-  },
   "dependencies": {
     "@nhost/hasura-auth-js": "^0.1.10",
     "@nhost/hasura-storage-js": "^0.0.6",
