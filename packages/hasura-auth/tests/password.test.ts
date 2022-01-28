@@ -1,5 +1,5 @@
-import faker from 'faker';
 import axios from 'axios';
+import faker from 'faker';
 import { auth, mailhog, signUpAndInUser, signUpAndVerifyUser } from './helpers';
 
 const htmlUrls = require('html-urls');
@@ -56,16 +56,12 @@ test('reset password', async () => {
 
   // get verify email link
   const resetPasswordLink = htmlUrls({ html: messageResetPassword.html }).find(
-    (href: { value: string; url: string; uri: string }) => {
-      return href.url.includes('passwordReset');
-    }
+    (href: { value: string; url: string; uri: string }) => href.url.includes('passwordReset'),
   );
 
   // verify email
   await axios.get(resetPasswordLink.url, {
     maxRedirects: 0,
-    validateStatus: (status) => {
-      return status === 302;
-    },
+    validateStatus: (status) => status === 302,
   });
 });

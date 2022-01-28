@@ -1,18 +1,16 @@
-import { HasuraAuthClient } from '@nhost/hasura-auth-js';
+import { ClientStorage, ClientStorageType, HasuraAuthClient } from '@nhost/hasura-auth-js';
 import { HasuraStorageClient } from '@nhost/hasura-storage-js';
-import { ClientStorage, ClientStorageType } from '@nhost/hasura-auth-js';
-
 import { NhostFunctionsClient } from '../clients/functions';
 import { NhostGraphqlClient } from '../clients/graphql';
 
-export type NhostClientConstructorParams = {
+export interface NhostClientConstructorParams {
   backendUrl: string;
   refreshIntervalTime?: number;
   clientStorage?: ClientStorage;
   clientStorageType?: ClientStorageType;
   autoRefreshToken?: boolean;
   autoLogin?: boolean;
-};
+}
 
 export class NhostClient {
   auth: HasuraAuthClient;
@@ -29,8 +27,7 @@ export class NhostClient {
    * @docs https://docs.nhost.io/TODO
    */
   constructor(params: NhostClientConstructorParams) {
-    if (!params.backendUrl)
-      throw 'Please specify a `backendUrl`. Docs: [todo]!';
+    if (!params.backendUrl) throw new Error('Please specify a `backendUrl`. Docs: [todo]!');
 
     const {
       backendUrl,

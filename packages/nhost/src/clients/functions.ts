@@ -1,9 +1,9 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { FunctionCallResponse } from '../types';
 
-export type NhostFunctionsConstructorParams = {
+export interface NhostFunctionsConstructorParams {
   url: string;
-};
+}
 
 export class NhostFunctionsClient {
   private instance: AxiosInstance;
@@ -18,11 +18,7 @@ export class NhostFunctionsClient {
     });
   }
 
-  public async call(
-    url: string,
-    data: any,
-    config?: AxiosRequestConfig
-  ): Promise<FunctionCallResponse> {
+  async call(url: string, data: any, config?: AxiosRequestConfig): Promise<FunctionCallResponse> {
     const headers = {
       ...this.generateAccessTokenHeaders(),
       ...config?.headers,
@@ -40,14 +36,14 @@ export class NhostFunctionsClient {
     if (!res) {
       return {
         res: null,
-        error: Error('Unable to make post request to funtion'),
+        error: new Error('Unable to make post request to funtion'),
       };
     }
 
     return { res, error: null };
   }
 
-  public setAccessToken(accessToken: string | undefined) {
+  setAccessToken(accessToken: string | undefined) {
     if (!accessToken) {
       this.accessToken = null;
       return;
@@ -56,11 +52,12 @@ export class NhostFunctionsClient {
     this.accessToken = accessToken;
   }
 
-  private generateAccessTokenHeaders() {
+  private generateAccessTokenHeaders(): { Authorization: string } | undefined {
     if (!this.accessToken) {
       return;
     }
 
+    // eslint-disable-next-line consistent-return
     return {
       Authorization: `Bearer ${this.accessToken}`,
     };

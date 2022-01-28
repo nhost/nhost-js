@@ -2,12 +2,12 @@ import { AxiosResponse } from 'axios';
 
 export type GraphqlRequestResponse =
   | {
-      data: unknown;
-      error: null;
-    }
-  | {
       data: null;
       error: Error | object;
+    }
+  | {
+      data: unknown;
+      error: null;
     };
 
 export type FunctionCallResponse =
@@ -20,7 +20,7 @@ export type FunctionCallResponse =
       error: Error;
     };
 
-export type GraphqlResponse = {
+export interface GraphqlResponse {
   errors?: object[];
   data?: object;
-};
+}

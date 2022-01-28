@@ -1,9 +1,9 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { GraphqlRequestResponse, GraphqlResponse } from '../types';
 
-export type NhostGraphqlConstructorParams = {
+export interface NhostGraphqlConstructorParams {
   url: string;
-};
+}
 
 export class NhostGraphqlClient {
   private url: string;
@@ -20,10 +20,10 @@ export class NhostGraphqlClient {
     });
   }
 
-  public async request(
+  async request(
     document: string,
     variables?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<GraphqlRequestResponse> {
     // add auth headers if any
     const headers = {
@@ -38,11 +38,12 @@ export class NhostGraphqlClient {
       const res = await this.instance.post(
         '',
         {
-          operationName: operationName ? operationName : undefined,
+          operationName: operationName || undefined,
           query: document,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           variables,
         },
-        { ...config, headers }
+        { ...config, headers },
       );
 
       responseData = res.data;
@@ -51,17 +52,13 @@ export class NhostGraphqlClient {
         return { data: null, error };
       }
       console.error(error);
-      return { data: null, error: Error('Unable to get do GraphQL request') };
+      return { data: null, error: new Error('Unable to get do GraphQL request') };
     }
 
-    if (
-      typeof responseData !== 'object' ||
-      Array.isArray(responseData) ||
-      responseData === null
-    ) {
+    if (typeof responseData !== 'object' || Array.isArray(responseData) || responseData === null) {
       return {
         data: null,
-        error: Error('incorrect response data from GraphQL server'),
+        error: new Error('incorrect response data from GraphQL server'),
       };
     }
 
@@ -77,11 +74,11 @@ export class NhostGraphqlClient {
     return { data: responseData.data, error: null };
   }
 
-  public getUrl(): string {
+  getUrl(): string {
     return this.url;
   }
 
-  public setAccessToken(accessToken: string | undefined) {
+  setAccessToken(accessToken: string | undefined) {
     if (!accessToken) {
       this.accessToken = null;
       return;
@@ -95,6 +92,7 @@ export class NhostGraphqlClient {
       return;
     }
 
+    // eslint-disable-next-line consistent-return
     return {
       Authorization: `Bearer ${this.accessToken}`,
     };

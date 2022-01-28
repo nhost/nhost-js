@@ -1,8 +1,8 @@
-import faker from 'faker';
 import axios from 'axios';
-const htmlUrls = require('html-urls');
+import faker from 'faker';
+import { auth, mailhog, signUpAndVerifyUser } from './helpers';
 
-import { mailhog, auth, signUpAndVerifyUser } from './helpers';
+const htmlUrls = require('html-urls');
 
 test('sign in user with email and password', async () => {
   const email = faker.internet.email().toLocaleLowerCase();
@@ -29,7 +29,7 @@ test('sign in user with email and password', async () => {
       displayName: email,
       avatarUrl: expect.any(String),
       locale: 'en',
-      email: email,
+      email,
       isAnonymous: false,
       defaultRole: expect.any(String),
       roles: expect.any(Array),
@@ -57,16 +57,12 @@ test('sign in user with passwordless email (magic link)', async () => {
 
   // get passwordless email ink
   const emailLink = htmlUrls({ html: message.html }).find(
-    (href: { value: string; url: string; uri: string }) => {
-      return href.url.includes('signinPasswordless');
-    }
+    (href: { value: string; url: string; uri: string }) => href.url.includes('signinPasswordless'),
   );
 
   // verify email
   await axios.get(emailLink.url, {
     maxRedirects: 0,
-    validateStatus: (status) => {
-      return status === 302;
-    },
+    validateStatus: (status) => status === 302,
   });
 });
