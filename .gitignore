@@ -44,4 +44,4 @@ prettier.config.js
 # Local Netlify folder
 .netlify
 .monorepo-example
-nhost
+

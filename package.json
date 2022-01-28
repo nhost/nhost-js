@@ -27,13 +27,16 @@
     "format": "beemo prettier",
     "lint": "beemo eslint 'packages/*/{src,test}/**.{ts,js}'",
     "test": "pnpm turbo run test --scope='@nhost/*'",
+    "backend:start": "pnpm run --filter @nhost/backend start",
+    "backend:end": "pnpm run --filter @nhost/backend stop",
     "type": "pnpm turbo run type --scope='@nhost/*'",
     "prerelease": "pnpm clean && pnpm install && pnpm run ci",
     "release": "pnpm run prerelease && changeset publish && git push --follow-tags && git status && pnpm -r publish",
     "snapshot": "pnpm prerelease && changeset version --snapshot preview && pnpm install && changeset publish --tag preview"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "backend"
   ],
   "devDependencies": {
     "@babel/core": "^7.16.12",
@@ -50,6 +53,7 @@
     "eslint": "^8.7.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.4.7",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.5.1",
     "ts-node": "^10.4.0",
     "turbo": "^1.1.1",

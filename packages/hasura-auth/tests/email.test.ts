@@ -1,21 +1,12 @@
 import axios from 'axios';
 import faker from 'faker';
 import htmlUrls from 'html-urls';
-import createMailhogClient from 'mailhog';
-import { HasuraAuthClient } from '../src';
+import { auth, mailhog } from './helpers';
 
-const AUTH_BACKEND_URL = 'http://localhost:1337/v1/auth';
-
-const auth = new HasuraAuthClient({
-  url: AUTH_BACKEND_URL,
-});
-
-const mailhog = createMailhogClient({
-  host: 'localhost',
-  port: 8025,
-});
-
-describe('main tests', () => {
+describe('emails', () => {
+  afterEach(async () => {
+    await auth.signOut();
+  });
   it('change email', async () => {
     const email = faker.internet.email().toLocaleLowerCase();
     const password = faker.internet.password(8);

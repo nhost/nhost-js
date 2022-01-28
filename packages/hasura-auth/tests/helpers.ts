@@ -1,8 +1,7 @@
 import axios from 'axios';
+import htmlUrls from 'html-urls';
 import createMailhogClient from 'mailhog';
 import { HasuraAuthClient, SignUpParams } from '../src';
-
-const htmlUrls = require('html-urls');
 
 const AUTH_BACKEND_URL = 'http://localhost:1337/v1/auth';
 
@@ -11,7 +10,7 @@ const auth = new HasuraAuthClient({
 });
 
 const mailhog = createMailhogClient({
-  host: 'localhost',
+  host: '127.0.0.1',
   port: 8025,
 });
 

@@ -1,0 +1,12 @@
+{
+  "name": "@nhost/backend",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Wrapper to run the Nhost CLI for development and testing",
+  "scripts": {
+    "start": "nhost & echo $! > .PID",
+    "stop": "kill -2 $(cat .PID) && rm .PID"
+  },
+  "author": "Pierre-Louis Mercereau",
+  "license": "MIT"
+}

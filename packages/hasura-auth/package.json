@@ -25,7 +25,7 @@
     "build:cjs": "tsc --module commonjs --outDir lib",
     "build:esm": "tsc --module es2020 --outDir esm && pnpm esm:extensions",
     "esm:extensions": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\" ../../.config/esm-transformer.ts",
-    "test": "pnpm jest --runInBand"
+    "test": "pnpm jest --runInBand --detectOpenHandles"
   },
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -34,7 +34,6 @@
     "import": "./esm/index.js",
     "require": "./lib/index.js"
   },
-
   "publishConfig": {
     "access": "public"
   },
@@ -45,5 +44,9 @@
     "query-string": "^7.1.0"
   },
   "devDependencies": {
+    "@types/faker": "5",
+    "faker": "5",
+    "html-urls": "^2.4.27",
+    "mailhog": "^4.16.0"
   }
 }

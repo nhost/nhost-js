@@ -294,7 +294,7 @@ export class HasuraAuthClient {
       }
       const { session, mfa } = data;
       if (session) {
-        this._setSession(session);
+        await this._setSession(session);
       }
       return { session, mfa, error: null };
     }
