@@ -3,9 +3,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import fetch from 'isomorphic-unfetch';
-import ws from 'isomorphic-ws';
-import { SubscriptionClient } from 'subscriptions-transport-ws';
+import fetch from 'isomorphic-unfetch'
+import ws from 'isomorphic-ws'
+import { SubscriptionClient } from 'subscriptions-transport-ws'
 import {
   cacheExchange,
   createClient,
@@ -13,26 +13,26 @@ import {
   Exchange,
   fetchExchange,
   Provider,
-  subscriptionExchange,
-} from 'urql';
-import { AuthConfig, authExchange } from '@urql/exchange-auth';
+  subscriptionExchange
+} from 'urql'
+import { AuthConfig, authExchange } from '@urql/exchange-auth'
 
 export function generateUrqlClient(
   auth: any,
   gqlEndpoint: string,
   // headers, //do we still need them? see addAuthToOperation()
-  publicRole = 'public',
+  publicRole = 'public'
 ) {
-  const ssr = typeof window === 'undefined';
+  const ssr = typeof window === 'undefined'
   // eslint-disable-next-line @typescript-eslint/require-await
   const getAuth: AuthConfig<any>['getAuth'] = async () => {
     if (!auth.isAuthenticated()) {
-      const token = auth.getJWTToken();
-      const refreshToken = !ssr && localStorage.getItem('refresh_token');
+      const token = auth.getJWTToken()
+      const refreshToken = !ssr && localStorage.getItem('refresh_token')
       if (token && refreshToken) {
-        return { token, refreshToken };
+        return { token, refreshToken }
       }
-      return null;
+      return null
     }
     // we could try a refresh token mutation/operation
     // if auth.refreshToken() would be a public function
@@ -44,17 +44,17 @@ export function generateUrqlClient(
     // else we logout
     // auth.logout()
 
-    return null;
-  };
+    return null
+  }
   const addAuthToOperation: AuthConfig<any>['addAuthToOperation'] = ({
-    operation,
+    operation
   }: {
-    operation: any;
+    operation: any
   }) => {
     const fetchOptions =
       typeof operation.context.fetchOptions === 'function'
         ? operation.context.fetchOptions()
-        : operation.context.fetchOptions || {};
+        : operation.context.fetchOptions || {}
     return {
       ...operation,
       context: {
@@ -64,21 +64,21 @@ export function generateUrqlClient(
           headers: !auth.isAuthenticated()
             ? {
                 ...fetchOptions.headers,
-                role: publicRole,
+                role: publicRole
               }
             : {
                 ...fetchOptions.headers,
-                Authorization: `Bearer ${auth.getJWTToken()}`,
-              },
-        },
-      },
-    };
-  };
+                Authorization: `Bearer ${auth.getJWTToken()}`
+              }
+        }
+      }
+    }
+  }
   const didAuthError: AuthConfig<any>['didAuthError'] = ({ error }: { error: any }) =>
-    error.graphQLErrors.some((e: any) => e.extensions?.code === 'FORBIDDEN');
-  const uri = gqlEndpoint;
+    error.graphQLErrors.some((e: any) => e.extensions?.code === 'FORBIDDEN')
+  const uri = gqlEndpoint
 
-  const wsUri = uri.startsWith('https') ? uri.replace(/^https/, 'wss') : uri.replace(/^http/, 'ws');
+  const wsUri = uri.startsWith('https') ? uri.replace(/^https/, 'wss') : uri.replace(/^http/, 'ws')
 
   const subscriptionClient = new SubscriptionClient(
     wsUri,
@@ -87,17 +87,17 @@ export function generateUrqlClient(
       connectionParams: {
         headers: !auth.isAuthenticated()
           ? { role: publicRole }
-          : { Authorization: `Bearer ${auth.getJWTToken()}` },
-      },
+          : { Authorization: `Bearer ${auth.getJWTToken()}` }
+      }
     },
-    ws,
-  );
+    ws
+  )
   // TODO really ulgy anys
   const authExchangeConfig = authExchange({
     getAuth,
     addAuthToOperation,
-    didAuthError,
-  } as AuthConfig<any>) as any as Exchange;
+    didAuthError
+  } as AuthConfig<any>) as any as Exchange
   const client = createClient({
     url: uri,
     fetch,
@@ -110,20 +110,20 @@ export function generateUrqlClient(
       fetchExchange,
       subscriptionExchange({
         forwardSubscription(operation) {
-          return subscriptionClient.request(operation);
-        },
-      }),
-    ],
-  });
+          return subscriptionClient.request(operation)
+        }
+      })
+    ]
+  })
 
-  return client;
+  return client
 }
 
 export const NhostUrqlProvider: React.FC<{ auth: any; gqlEndpoint: string; publicRole: string }> = (
-  props,
+  props
 ) => {
-  const { auth, gqlEndpoint, publicRole = 'public', children } = props;
-  const client = generateUrqlClient(auth, gqlEndpoint, publicRole);
+  const { auth, gqlEndpoint, publicRole = 'public', children } = props
+  const client = generateUrqlClient(auth, gqlEndpoint, publicRole)
 
-  return <Provider value={client}>{children}</Provider>;
-};
+  return <Provider value={client}>{children}</Provider>
+}

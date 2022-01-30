@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosInstance } from 'axios';
+import axios, { AxiosError, AxiosInstance } from 'axios'
 import {
   ApiChangeEmailResponse,
   ApiChangePasswordResponse,
@@ -20,22 +20,22 @@ import {
   SignInPasswordlessEmailParams,
   SignInPasswordlessSmsOtpParams,
   SignInPasswordlessSmsParams,
-  SignUpEmailPasswordParams,
-} from './utils/types';
+  SignUpEmailPasswordParams
+} from './utils/types'
 
-const SERVER_ERROR_CODE = 500;
+const SERVER_ERROR_CODE = 500
 export class HasuraAuthApi {
-  private url: string;
-  private httpClient: AxiosInstance;
-  private accessToken: string | undefined;
+  private url: string
+  private httpClient: AxiosInstance
+  private accessToken: string | undefined
 
   constructor({ url = '' }) {
-    this.url = url;
+    this.url = url
 
     this.httpClient = axios.create({
       baseURL: this.url,
-      timeout: 10_000,
-    });
+      timeout: 10_000
+    })
 
     // convert axios error to custom ApiError
     this.httpClient.interceptors.response.use(
@@ -45,9 +45,9 @@ export class HasuraAuthApi {
         // eslint-disable-next-line prefer-promise-reject-errors, promise/no-promise-in-callback
         Promise.reject({
           message: error.response?.data?.message ?? error.message ?? JSON.stringify(error),
-          status: error.response?.status ?? SERVER_ERROR_CODE,
-        }),
-    );
+          status: error.response?.status ?? SERVER_ERROR_CODE
+        })
+    )
   }
 
   /**
@@ -55,78 +55,78 @@ export class HasuraAuthApi {
    */
   async signUpEmailPassword(params: SignUpEmailPasswordParams): Promise<ApiSignInResponse> {
     try {
-      const res = await this.httpClient.post<ApiSignInData>('/signup/email-password', params);
-      return { data: res.data, error: null };
+      const res = await this.httpClient.post<ApiSignInData>('/signup/email-password', params)
+      return { data: res.data, error: null }
     } catch (error) {
-      return { data: null, error: error as ApiError };
+      return { data: null, error: error as ApiError }
     }
   }
 
   async signInEmailPassword(params: SignInEmailPasswordParams): Promise<ApiSignInResponse> {
     try {
-      const res = await this.httpClient.post<ApiSignInData>('/signin/email-password', params);
-      return { data: res.data, error: null };
+      const res = await this.httpClient.post<ApiSignInData>('/signin/email-password', params)
+      return { data: res.data, error: null }
     } catch (error) {
-      return { data: null, error: error as ApiError };
+      return { data: null, error: error as ApiError }
     }
   }
 
   async signInPasswordlessEmail(params: SignInPasswordlessEmailParams): Promise<ApiSignInResponse> {
     try {
-      const res = await this.httpClient.post<ApiSignInData>('/signin/passwordless/email', params);
-      return { data: res.data, error: null };
+      const res = await this.httpClient.post<ApiSignInData>('/signin/passwordless/email', params)
+      return { data: res.data, error: null }
     } catch (error) {
-      return { data: null, error: error as ApiError };
+      return { data: null, error: error as ApiError }
     }
   }
 
   async signInPasswordlessSms(params: SignInPasswordlessSmsParams): Promise<ApiSignInResponse> {
     try {
-      const res = await this.httpClient.post<ApiSignInData>('/signin/passwordless/sms', params);
-      return { data: res.data, error: null };
+      const res = await this.httpClient.post<ApiSignInData>('/signin/passwordless/sms', params)
+      return { data: res.data, error: null }
     } catch (error) {
-      return { data: null, error: error as ApiError };
+      return { data: null, error: error as ApiError }
     }
   }
 
   async signInPasswordlessSmsOtp(
-    params: SignInPasswordlessSmsOtpParams,
+    params: SignInPasswordlessSmsOtpParams
   ): Promise<ApiSignInResponse> {
     try {
-      const res = await this.httpClient.post<ApiSignInData>('/signin/passwordless/sms/otp', params);
-      return { data: res.data, error: null };
+      const res = await this.httpClient.post<ApiSignInData>('/signin/passwordless/sms/otp', params)
+      return { data: res.data, error: null }
     } catch (error) {
-      return { data: null, error: error as ApiError };
+      return { data: null, error: error as ApiError }
     }
   }
 
   async signOut(params: { refreshToken: string; all?: boolean }): Promise<ApiSignOutResponse> {
     try {
-      await this.httpClient.post('/signout', params);
+      await this.httpClient.post('/signout', params)
 
-      return { error: null };
+      return { error: null }
     } catch (error) {
-      return { error: error as ApiError };
+      return { error: error as ApiError }
     }
   }
 
   async refreshToken(params: { refreshToken: string }): Promise<ApiRefreshTokenResponse> {
     try {
-      const res = await this.httpClient.post<Session>('/token', params);
+      const res = await this.httpClient.post<Session>('/token', params)
 
-      return { error: null, session: res.data };
+      return { error: null, session: res.data }
     } catch (error) {
-      return { error: error as ApiError, session: null };
+      return { error: error as ApiError, session: null }
     }
   }
 
   async resetPassword(params: ResetPasswordParams): Promise<ApiResetPasswordResponse> {
     try {
-      await this.httpClient.post('/user/password/reset', params);
+      await this.httpClient.post('/user/password/reset', params)
 
-      return { error: null };
+      return { error: null }
     } catch (error) {
-      return { error: error as ApiError };
+      return { error: error as ApiError }
     }
   }
 
@@ -134,25 +134,25 @@ export class HasuraAuthApi {
     try {
       await this.httpClient.post('/user/password', params, {
         headers: {
-          ...this.generateAuthHeaders(),
-        },
-      });
+          ...this.generateAuthHeaders()
+        }
+      })
 
-      return { error: null };
+      return { error: null }
     } catch (error) {
-      return { error: error as ApiError };
+      return { error: error as ApiError }
     }
   }
 
   async sendVerificationEmail(
-    params: SendVerificationEmailParams,
+    params: SendVerificationEmailParams
   ): Promise<ApiSendVerificationEmailResponse> {
     try {
-      await this.httpClient.post('/user/email/send-verification-email', params);
+      await this.httpClient.post('/user/email/send-verification-email', params)
 
-      return { error: null };
+      return { error: null }
     } catch (error) {
-      return { error: error as ApiError };
+      return { error: error as ApiError }
     }
   }
 
@@ -160,23 +160,23 @@ export class HasuraAuthApi {
     try {
       await this.httpClient.post('/user/email/change', params, {
         headers: {
-          ...this.generateAuthHeaders(),
-        },
-      });
+          ...this.generateAuthHeaders()
+        }
+      })
 
-      return { error: null };
+      return { error: null }
     } catch (error) {
-      return { error: error as ApiError };
+      return { error: error as ApiError }
     }
   }
 
   async deanonymize(params: DeanonymizeParams): Promise<ApiDeanonymizeResponse> {
     try {
-      await this.httpClient.post('/user/deanonymize', params);
+      await this.httpClient.post('/user/deanonymize', params)
 
-      return { error: null };
+      return { error: null }
     } catch (error) {
-      return { error: error as ApiError };
+      return { error: error as ApiError }
     }
   }
 
@@ -184,25 +184,25 @@ export class HasuraAuthApi {
 
   async verifyEmail(params: { email: string; ticket: string }): Promise<ApiSignInResponse> {
     try {
-      const res = await this.httpClient.post<ApiSignInData>('/user/email/verify', params);
+      const res = await this.httpClient.post<ApiSignInData>('/user/email/verify', params)
 
-      return { data: res.data, error: null };
+      return { data: res.data, error: null }
     } catch (error) {
-      return { data: null, error: error as ApiError };
+      return { data: null, error: error as ApiError }
     }
   }
 
   setAccessToken(accessToken: string | undefined) {
-    this.accessToken = accessToken;
+    this.accessToken = accessToken
   }
 
   private generateAuthHeaders() {
     if (!this.accessToken) {
-      return null;
+      return null
     }
 
     return {
-      Authorization: `Bearer ${this.accessToken}`,
-    };
+      Authorization: `Bearer ${this.accessToken}`
+    }
   }
 }

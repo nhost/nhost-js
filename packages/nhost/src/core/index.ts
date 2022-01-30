@@ -1,1 +1,1 @@
-export * from './nhost-client';
+export * from './nhost-client'

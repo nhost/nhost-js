@@ -2,14 +2,14 @@ const config = {
   module: '@beemo/dev',
   drivers: {
     eslint: {
-      args: ['--cache-location', './node_modules/.cache/eslint', '--cache'],
+      args: ['--cache-location', './node_modules/.cache/eslint', '--cache']
     },
-    prettier: true,
+    prettier: true
   },
   settings: {
     useBuiltIns: false,
-    node: true,
-  },
-};
+    node: true
+  }
+}
 
-export default config;
+export default config

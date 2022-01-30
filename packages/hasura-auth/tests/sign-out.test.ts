@@ -1,17 +1,17 @@
-import faker from 'faker';
-import { auth, signUpAndInUser } from './helpers';
+import faker from 'faker'
+import { auth, signUpAndInUser } from './helpers'
 
 describe('sign-out', () => {
   it('sign in user with email and password', async () => {
-    const email = faker.internet.email().toLocaleLowerCase();
-    const password = faker.internet.password(8);
+    const email = faker.internet.email().toLocaleLowerCase()
+    const password = faker.internet.password(8)
 
-    await signUpAndInUser({ email, password });
+    await signUpAndInUser({ email, password })
 
-    expect(auth.getSession()).toBeTruthy();
+    expect(auth.getSession()).toBeTruthy()
 
-    await auth.signOut();
+    await auth.signOut()
 
-    expect(auth.getSession()).toBeNull();
-  });
-});
+    expect(auth.getSession()).toBeNull()
+  })
+})

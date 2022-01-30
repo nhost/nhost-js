@@ -1,26 +1,26 @@
-import { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios'
 
 export type GraphqlRequestResponse =
   | {
-      data: null;
-      error: Error | object;
+      data: null
+      error: Error | object
     }
   | {
-      data: unknown;
-      error: null;
-    };
+      data: unknown
+      error: null
+    }
 
 export type FunctionCallResponse =
   | {
-      res: AxiosResponse;
-      error: null;
+      res: AxiosResponse
+      error: null
     }
   | {
-      res: null;
-      error: Error;
-    };
+      res: null
+      error: Error
+    }
 
 export interface GraphqlResponse {
-  errors?: object[];
-  data?: object;
+  errors?: object[]
+  data?: object
 }

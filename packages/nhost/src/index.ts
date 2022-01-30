@@ -1,6 +1,6 @@
-import { NhostClient, NhostClientConstructorParams } from './core';
+import { NhostClient, NhostClientConstructorParams } from './core'
 
-const createClient = (config: NhostClientConstructorParams) => new NhostClient(config);
+const createClient = (config: NhostClientConstructorParams) => new NhostClient(config)
 
-export * from './core';
-export { createClient };
+export * from './core'
+export { createClient }
