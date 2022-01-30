@@ -1,0 +1,60 @@
+{
+  "name": "@nhost/react-urql",
+  "version": "0.0.1",
+  "description": "Nhost React URQL client",
+  "license": "MIT",
+  "keywords": [
+    "nhost",
+    "hasura",
+    "storage",
+    "auth",
+    "authentication",
+    "graphql",
+    "postgresql",
+    "realtime",
+    "react",
+    "urql"
+  ],
+  "author": "Nhost",
+  "homepage": "https://nhost.io",
+  "bugs": "https://github.com/nhost/nhost-js/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nhost/nhost-js.git"
+  },
+  "scripts": {
+    "type": "tsc --noEmit && tsc --project tests/tsconfig.json",
+    "build": "pnpm build:cjs && pnpm build:esm",
+    "build:cjs": "tsc --module commonjs --outDir lib",
+    "build:esm": "tsc --module es2020 --outDir esm && pnpm esm:extensions",
+    "esm:extensions": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\" ../../.config/esm-transformer.ts"
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "module": "./esm/index.js",
+  "exports": {
+    "import": "./esm/index.js",
+    "require": "./lib/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@urql/exchange-auth": "^0.1.0",
+    "isomorphic-unfetch": "^3.1.0",
+    "isomorphic-ws": "^4.0.1",
+    "regenerator-runtime": "^0.13.7",
+    "subscriptions-transport-ws": "^0.9.17",
+    "urql": "^1.10.1"
+  },
+  "peerDependencies": {
+    "react": "^16.0.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0",
+    "graphql": "^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.38",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
