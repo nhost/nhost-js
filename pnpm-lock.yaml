@@ -18,8 +18,11 @@ importers:
       '@faker-js/faker': ^6.0.0-alpha.5
       '@types/jest': ^27.4.0
       '@types/node': ^17.0.13
+      '@typescript-eslint/eslint-plugin': ^5.10.1
+      '@typescript-eslint/parser': ^5.10.1
       eslint: ^8.7.0
       eslint-plugin-prettier: ^4.0.0
+      eslint-plugin-react: ^7.28.0
       jest: ^27.4.7
       npm-run-all: ^4.1.5
       prettier: ^2.5.1
@@ -38,8 +41,11 @@ importers:
       '@faker-js/faker': 6.0.0-alpha.5
       '@types/jest': 27.4.0
       '@types/node': 17.0.13
+      '@typescript-eslint/eslint-plugin': 5.10.1_0f442f6b60390429061d5d9b6bcaaba6
+      '@typescript-eslint/parser': 5.10.1_eslint@8.7.0+typescript@4.5.5
       eslint: 8.7.0
       eslint-plugin-prettier: 4.0.0_eslint@8.7.0+prettier@2.5.1
+      eslint-plugin-react: 7.28.0_eslint@8.7.0
       jest: 27.4.7_ts-node@10.4.0
       npm-run-all: 4.1.5
       prettier: 2.5.1
@@ -71,6 +77,9 @@ importers:
       html-urls: 2.4.27
       mailhog: 4.16.0
 
+  packages/hasura-auth/esm:
+    specifiers: {}
+
   packages/hasura-storage:
     specifiers:
       axios: ^0.21.1
@@ -90,6 +99,25 @@ importers:
       axios: 0.23.0
       jwt-decode: 3.1.2
       query-string: 7.1.0
+
+  packages/nhost/esm:
+    specifiers: {}
+
+  packages/react-auth:
+    specifiers:
+      '@nhost/nhost-js': workspace:*
+      '@types/react': ^17.0.38
+      react: ^17.0.2
+      react-dom: ^17.0.2
+    dependencies:
+      '@nhost/nhost-js': link:../nhost
+    devDependencies:
+      '@types/react': 17.0.38
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+
+  packages/react-auth/esm:
+    specifiers: {}
 
 packages:
 
@@ -2548,6 +2576,22 @@ packages:
     resolution: {integrity: sha512-QzSuZMBuG5u8HqYz01qtMdg/Jfctlnvj1z/lYnIDXs/golxw0fxtRAHd9KrzjR7Yxz1qVeI00o0kiO3PmVdJ9w==}
     dev: true
 
+  /@types/prop-types/15.7.4:
+    resolution: {integrity: sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==}
+    dev: true
+
+  /@types/react/17.0.38:
+    resolution: {integrity: sha512-SI92X1IA+FMnP3qM5m4QReluXzhcmovhZnLNm3pyeQlooi02qI7sLiepEYqT678uNiyc25XfCqxREFpy3W7YhQ==}
+    dependencies:
+      '@types/prop-types': 15.7.4
+      '@types/scheduler': 0.16.2
+      csstype: 3.0.10
+    dev: true
+
+  /@types/scheduler/0.16.2:
+    resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
+    dev: true
+
   /@types/semver/6.2.3:
     resolution: {integrity: sha512-KQf+QAMWKMrtBMsB8/24w53tEsxllMj6TuA80TT/5igJalLI/zm0L3oXRbIAl4Ohfc85gyHX/jhMwsVkmhLU4A==}
     dev: true
@@ -3605,6 +3649,10 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       cssom: 0.3.8
+    dev: true
+
+  /csstype/3.0.10:
+    resolution: {integrity: sha512-2u44ZG2OcNUO9HDp/Jl8C07x6pU/eTR3ncV91SiK3dhG9TWvRVsCoJw14Ckx5DgWkzGA3waZWO3d7pgqpUI/XA==}
     dev: true
 
   /csv-generate/3.4.3:
@@ -7068,6 +7116,17 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+    dev: true
+
+  /react-dom/17.0.2_react@17.0.2:
+    resolution: {integrity: sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==}
+    peerDependencies:
+      react: 17.0.2
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      react: 17.0.2
+      scheduler: 0.20.2
     dev: true
 
   /react-is/16.13.1:

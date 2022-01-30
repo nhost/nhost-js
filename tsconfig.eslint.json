@@ -9,6 +9,10 @@
     "packages/*/*.js",
     "packages/*/src/**/*.ts",
     "packages/*/test/**/*.ts",
-    "packages/*/tests/**/*.ts"
+    "packages/*/tests/**/*.ts",
+    "packages/*/*.jsx",
+    "packages/*/src/**/*.tsx",
+    "packages/*/test/**/*.tsx",
+    "packages/*/tests/**/*.tsx"
   ]
 }
