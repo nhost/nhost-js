@@ -1,61 +1,59 @@
 import { ESLintConfig } from '@beemo/driver-eslint'
 
 const config: ESLintConfig = {
+  root: true,
+  parser: '@typescript-eslint/parser',
   extends: [
     'eslint:recommended',
-    'plugin:react/recommended',
-    // 'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended'
+    'plugin:@typescript-eslint/recommended',
+    'plugin:promise/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+    'plugin:prettier/recommended',
+    'plugin:react-hooks/recommended'
   ],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true
-    },
-    ecmaVersion: 'latest',
-    sourceType: 'module'
+  env: {
+    browser: true,
+    node: true
   },
   rules: {
     '@typescript-eslint/no-implicit-any-catch': 'off',
     'sort-keys': 'off',
-    // 'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }], //should add ".ts" if typescript project
-    'react/react-in-jsx-scope': 'off'
+    'no-console': ['error', { allow: ['warn', 'error'] }],
+
+    'import/prefer-default-export': 'off',
+    'import/no-default-export': 'error',
+    'import/no-unresolved': ['error', { ignore: ['unist', 'mdast'] }],
+
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
+
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error'
   },
-  plugins: ['prettier', 'react', '@typescript-eslint'],
-  ignore: ['scripts', '*.generated.ts', '*.generated.tsx', '.eslintrc.js'],
+  plugins: ['simple-import-sort'],
+
   overrides: [
     {
-      files: ['packages/**/*.js', 'packages/**/*.mjs'],
+      files: ['**/*.js'],
       rules: {
-        'import/no-commonjs': 'off',
-        'unicorn/prefer-module': 'off',
-        '@typescript-eslint/no-unsafe-return': 'off',
-        '@typescript-eslint/no-unsafe-assignment': 'off',
-        '@typescript-eslint/no-unsafe-call': 'off',
-        '@typescript-eslint/no-unsafe-member-access': 'off',
-        '@typescript-eslint/no-unsafe-argument': 'off'
+        'global-require': 'off',
+        '@typescript-eslint/no-require-imports': 'off',
+        '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/naming-convention': 'off',
+        'import/no-default-export': 'off'
       }
     },
     {
-      files: ['packages/*/tests/**/*'],
+      files: ['**/vue/**/*.tsx'],
       rules: {
-        'no-magic-numbers': 'off',
-        '@typescript-eslint/no-unsafe-assignment': 'off'
-      }
-    },
-    {
-      files: ['packages/*/tests/examples?/**/*', 'examples/**/*'],
-      rules: {
-        'no-console': 'off'
+        'react-hooks/rules-of-hooks': 'off'
       }
     }
   ],
   settings: {
     react: {
-      // See https://github.com/yannickcr/eslint-plugin-react#configuration
-      createClass: 'createReactClass', // Regex for Component Factory to use, default to "createReactClass"
-      pragma: 'React', // Pragma to use, default to "React"
-      version: 'detect' // React version. "detect" automatically picks the version you have installed.
+      version: 'detect'
     }
   }
 }

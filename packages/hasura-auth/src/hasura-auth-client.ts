@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-magic-numbers */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
@@ -9,9 +8,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 /* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
-
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable new-cap */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
