@@ -27,7 +27,8 @@
     "build": "pnpm build:cjs && pnpm build:esm",
     "build:cjs": "tsc --module commonjs --outDir lib",
     "build:esm": "tsc --module es2020 --outDir esm && pnpm esm:extensions",
-    "esm:extensions": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\" ../../.config/esm-transformer.ts"
+    "esm:extensions": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\" ../../.config/esm-transformer.ts",
+    "test": "pnpm jest --runInBand"
   },
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",

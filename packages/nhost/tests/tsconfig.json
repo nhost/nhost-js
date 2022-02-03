@@ -3,12 +3,11 @@
     "composite": false,
     "emitDeclarationOnly": false,
     "noEmit": true,
-    "rootDir": "."
+    "rootDir": ".",
+    "isolatedModules": false
   },
   "extends": "../../../tsconfig.options.json",
-  "include": [
-    "**/*",
-  ],
+  "include": ["**/*"],
   "references": [
     {
       "path": ".."
