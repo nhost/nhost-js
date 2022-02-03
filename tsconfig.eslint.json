@@ -13,6 +13,9 @@
     "packages/*/*.jsx",
     "packages/*/src/**/*.tsx",
     "packages/*/test/**/*.tsx",
-    "packages/*/tests/**/*.tsx"
+    "packages/*/tests/**/*.tsx",
+    "examples/**/*.ts",
+    "examples/**/*.js",
+    "examples/**/*.tsx"
   ]
 }

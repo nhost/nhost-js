@@ -41,21 +41,22 @@
     "access": "public"
   },
   "dependencies": {
-    "@urql/exchange-auth": "^0.1.0",
+    "@urql/exchange-auth": "^0.1.7",
     "isomorphic-unfetch": "^3.1.0",
     "isomorphic-ws": "^4.0.1",
-    "regenerator-runtime": "^0.13.7",
-    "subscriptions-transport-ws": "^0.9.17",
-    "urql": "^1.10.1"
+    "regenerator-runtime": "^0.13.9",
+    "subscriptions-transport-ws": "^0.9.19",
+    "urql": "^1.11.6"
   },
   "peerDependencies": {
     "react": "^16.0.0 || ^17.0.0 || ^18.0.0",
-    "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0",
-    "graphql": "^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0"
+    "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
-    "@types/react": "^17.0.38",
+    "@types/react": "^17.0.39",
+    "graphql": "15",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "ws": "^8.4.2"
   }
 }

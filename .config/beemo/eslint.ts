@@ -35,7 +35,7 @@ const config: ESLintConfig = {
 
   overrides: [
     {
-      files: ['**/*.js'],
+      files: ['{packages,examples,backend}/**/*.js', '{packages,examples,backend}/**/*.mjs'],
       rules: {
         'global-require': 'off',
         '@typescript-eslint/no-require-imports': 'off',
