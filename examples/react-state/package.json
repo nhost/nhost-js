@@ -1,5 +1,5 @@
 {
-  "name": "@nhost-examples/react-state",
+  "name": "@nhost-examples/react-xstate",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
