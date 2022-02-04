@@ -13,7 +13,7 @@
   <a href="https://www.nhost.io/blog">Blog</a> |
   <a href="https://www.linkedin.com/company/nhost">LinkedIn</a> |
   <a href="https://twitter.com/nhostio">Twitter</a> |
-  <a href="https://docs.nhost.io/reference/supporting-libraries/nhost-js">Documentation</a> 
+  <a href="https://docs.nhost.io/reference/sdk">Documentation</a> 
 </h4>
 
 <p align="center">
