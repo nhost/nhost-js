@@ -4,7 +4,7 @@
   </a>
 </p>
 <h1 align="center">
-  Nhost Javascript SDK
+  Nhost JavaScript SDK
 </h1>
 
 <h4 align="center">
