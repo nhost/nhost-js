@@ -38,7 +38,7 @@ See the [reference documentation](https://docs.nhost.io/reference/sdk)
 
 ## 🚀 Quickstart
 
-1. **Install {{package-title}}**
+1. **Install the SDK**
 
    ```bash
    # Using NPM
@@ -60,7 +60,7 @@ See the [reference documentation](https://docs.nhost.io/reference/sdk)
 
 <!-- ## ⭐️ Features
 
-{{package-title}} comes with the following features:
+The SDK comes with the following features:
 
 - **name**: one-sentence description of the feature
 - **name**: one-sentence description of the feature -->
