@@ -1,3 +1,9 @@
+# Disclaimer
+
+This package is now part of our [monorepo](https://github.com/nhost/nhost)
+
+------
+
 <h1 align="center">@nhost/nhost-js</h1>
 <h2 align="center">Nhost JavaScript SDK</h2>
 
